@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/update_session_form"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:backgroundTint="@color/light_blue"
+    android:background="@drawable/border_radius_top"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="0dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update Session Now"
+            android:textSize="25dp"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please, enter your infomation"
+            android:layout_marginBottom="40dp"
+            android:textColor="@color/white"/>
+
+
+        <EditText
+            android:id="@+id/edt_update_room_session"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Classroom"
+            android:inputType="text"
+            android:textSize="15dp"
+            android:padding="15dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/custom_edittext"
+            />
+
+        <EditText
+            android:id="@+id/edt_update_location_session"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Location"
+            android:inputType="text"
+            android:textSize="15dp"
+            android:padding="15dp"
+            android:textColorHint="@color/gray"
+            android:textColor="@color/black"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/custom_edittext"
+            />
+
+        <EditText
+            android:id="@+id/edt_update_time_end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Time end"
+            android:inputType="text"
+            android:textSize="15dp"
+            android:padding="15dp"
+            android:textColorHint="@color/gray"
+            android:textColor="@color/black"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/custom_edittext"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            />
+
+        <Button
+            android:id="@+id/btn_update_session"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            android:textStyle="bold"
+            android:text="Update Session"/>
+    </LinearLayout>
+
+</RelativeLayout>
