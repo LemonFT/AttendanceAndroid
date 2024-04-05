@@ -12,7 +12,9 @@ public interface IMemberService {
 
     public abstract boolean deleteMemberForClass(Member member);
 
-    public abstract List<Member> findAllMemberByUser(Long userId);
-
     public abstract Member insertMember(Member member);
+
+    public abstract boolean outClass(Long classId, Long userId);
+
+    public abstract boolean joinClass(Long classId, Long userId);
 }

@@ -1,5 +1,7 @@
 package com.example.hereiam.service;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,4 +48,11 @@ public class SessionService implements ISessionService {
         return sessionReturn != null ? sessionReturn : null;
     }
 
+    @Override
+    public boolean validTime(String qr, Date timeAtt) {
+        System.err.println(timeAtt.toString());
+        Timestamp timeEnd = sessionRepository.findTimeEndByQr(qr);
+        Date timeEndUtil = new Date(timeEnd.getTime());
+        return timeAtt.compareTo(timeEndUtil) <= 0;
+    }
 }

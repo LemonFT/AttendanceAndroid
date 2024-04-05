@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.hereiam.config.JwtTokenProvider;
-import com.example.hereiam.entity.JwtToken;
 import com.example.hereiam.entity.User;
 import com.example.hereiam.mapping.FirstSign;
+import com.example.hereiam.mapping.JwtToken;
 import com.example.hereiam.service.IUserService;
 
 @Controller

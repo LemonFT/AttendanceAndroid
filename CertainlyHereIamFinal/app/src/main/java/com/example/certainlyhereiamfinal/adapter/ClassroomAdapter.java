@@ -1,5 +1,6 @@
 package com.example.certainlyhereiamfinal.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -58,9 +59,11 @@ public class ClassroomAdapter extends RecyclerView.Adapter<ClassroomAdapter.MyHo
                     if(classroom.getUser().getId() == DataLocalManager.getUserId()){
                         Intent intent = new Intent(context, SessionsActivity.class);
                         context.startActivity(intent);
+                        ((Activity) context).finish();
                     }else{
                         Intent intent = new Intent(context, SessionsMemberActivity.class);
                         context.startActivity(intent);
+                        ((Activity) context).finish();
                     }
                 }
             });

@@ -28,4 +28,9 @@ public class UserService implements IUserService {
         return userTrue ? similarUser : null;
     }
 
+    @Override
+    public User findByEmailAndIdentifierInClass(String email, String identifier, Long classId) {
+        return userRepository.findUserByEmailOrIdentifierInClass(email, identifier, classId);
+    }
+
 }

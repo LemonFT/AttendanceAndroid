@@ -21,9 +21,9 @@
                 android:background="@drawable/brg_signin">
 
                 <ImageView
-                    android:id="@+id/open_navigationview"
+                    android:id="@+id/back_session"
                     android:layout_width="30dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:src="@drawable/ic_back"/>
 
                 <TextView

@@ -132,6 +132,9 @@ public class SessionsFragment extends Fragment implements SessionItemListenner {
                 String locationStr = edt_location.getText().toString();
                 Long classId = DataLocalManager.getClassId();
                 Session session = new Session(roomStr, locationStr, new Date(), timeEnd, new Classroom(classId));
+                if(roomStr.length() == 0 || locationStr.length() == 0 || edt_time_end.getText().length() == 0){
+                    showAlert("Check information and try again!");
+                }
                 sessionViewModel.insertSession(session).observe((LifecycleOwner) root.getContext(), data -> {
                     if(data != null){
                         loadSessions(root.getContext());
@@ -170,6 +173,9 @@ public class SessionsFragment extends Fragment implements SessionItemListenner {
         timePickerDialog.show();
     }
     public void loadSessions(Context context){
+        memberViewModel.getNumberMember(DataLocalManager.getClassId()).observe((LifecycleOwner) context, data -> {
+            number_member.setText("Members: "+data);
+        });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         sessionViewModel.findAllSessionClass(DataLocalManager.getClassId()).observe((LifecycleOwner) requireContext(), data -> {
@@ -178,9 +184,6 @@ public class SessionsFragment extends Fragment implements SessionItemListenner {
                 total_session.setText("Total sessions: "+data.size());
                 recyclerView.setAdapter(sessionAdapter);
             }
-        });
-        memberViewModel.getNumberMember(DataLocalManager.getClassId()).observe((LifecycleOwner) context, data -> {
-            number_member.setText("Members: "+data);
         });
     }
 
@@ -263,6 +266,9 @@ public class SessionsFragment extends Fragment implements SessionItemListenner {
                 Long classId = DataLocalManager.getClassId();
                 Session sessionUpdate = new Session(session.getId(), roomStr, locationStr, new Date(), timeEnd, new Classroom(classId), session.getQr());
                 sessionViewModel.updateSession(sessionUpdate).observe((LifecycleOwner) view.getContext(), data -> {
+                    if(roomStr.length() == 0 || locationStr.length() == 0 || edt_update_time_end.getText().length() == 0){
+                        showAlert("Check information and try again!");
+                    }
                     if(data != null){
                         loadSessions(view.getContext());
                         bottomSheetBehavior_update.setState(BottomSheetBehavior.STATE_COLLAPSED);

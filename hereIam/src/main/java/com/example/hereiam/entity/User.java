@@ -1,5 +1,7 @@
 package com.example.hereiam.entity;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,7 +21,7 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,5 +44,13 @@ public class User {
 
     public User(Long id) {
         this.id = id;
+    }
+
+    public User(Long id, String email, String fullname, String identifier, String avatar) {
+        this.id = id;
+        this.email = email;
+        this.fullname = fullname;
+        this.identifier = identifier;
+        this.avatar = avatar;
     }
 }

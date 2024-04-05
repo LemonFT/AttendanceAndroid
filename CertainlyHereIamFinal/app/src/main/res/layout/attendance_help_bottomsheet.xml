@@ -33,9 +33,10 @@
 
 
         <EditText
+            android:id="@+id/edt_email_attendanceHelp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Fullname"
+            android:hint="Email"
             android:inputType="textEmailAddress"
             android:textSize="15dp"
             android:padding="15dp"
@@ -43,11 +44,35 @@
             android:textColorHint="@color/gray"
             android:drawableLeft="@drawable/ic_name"
             android:drawablePadding="10dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="5dp"
             android:background="@drawable/custom_edittext"
             />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="3"
+                android:background="@color/black"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="or"
+                android:padding="10dp"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="3"
+                android:background="@color/black"/>
+        </LinearLayout>
+
         <EditText
+            android:id="@+id/edt_identifier_attendanceHelp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Identifier"
@@ -63,6 +88,7 @@
             />
 
         <Button
+            android:id="@+id/attendance_help_btn"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

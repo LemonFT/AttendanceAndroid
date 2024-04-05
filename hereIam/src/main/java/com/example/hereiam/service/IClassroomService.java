@@ -15,4 +15,6 @@ public interface IClassroomService {
     public abstract List<Classroom> findAllClassroomByUser(Long userId);
 
     public abstract Classroom updateClassroom(Classroom classroom);
+
+    public abstract boolean deleteClassroomById(Long classId);
 }

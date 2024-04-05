@@ -1,9 +1,15 @@
 package com.example.certainlyhereiamfinal.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,8 +27,8 @@ public class SessionsActivity extends AppCompatActivity {
 
     private static ViewPager mViewPager;
     private static BottomNavigationView mBottomNavigationView;
-
     private TextView title_class_name;
+    private ImageView back_classses;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,6 +44,17 @@ public class SessionsActivity extends AppCompatActivity {
         title_class_name = findViewById(R.id.title_class_name);
 
         title_class_name.setText(DataLocalManager.getClassname());
+
+        back_classses = findViewById(R.id.back_classses);
+
+        back_classses.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SessionsActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -85,6 +102,16 @@ public class SessionsActivity extends AppCompatActivity {
             }
         });
 
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Intent intent = new Intent(SessionsActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        };
+
+        this.getOnBackPressedDispatcher().addCallback(this, callback);
     }
 
 }

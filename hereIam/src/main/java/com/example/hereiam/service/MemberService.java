@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.hereiam.entity.Classroom;
 import com.example.hereiam.entity.Member;
+import com.example.hereiam.entity.User;
 import com.example.hereiam.repository.MemberRepository;
 
 @Service
@@ -34,15 +36,33 @@ public class MemberService implements IMemberService {
         return deletedMember == null;
     }
 
-    @Override
-    public List<Member> findAllMemberByUser(Long userId) {
-        return memberRepository.findAllByUserId(userId);
-    }
-
     @SuppressWarnings("null")
     @Override
     public Member insertMember(Member member) {
         return memberRepository.save(member);
+    }
+
+    @Override
+    public boolean outClass(Long classId, Long userId) {
+        try {
+            memberRepository.outClass(classId, userId);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean joinClass(Long classId, Long userId) {
+        try {
+            Member member = insertMember(new Member(null, new User(userId), new Classroom(classId), 2L, 1));
+            if (member == null) {
+                memberRepository.joinClassAgain(classId, userId);
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 }

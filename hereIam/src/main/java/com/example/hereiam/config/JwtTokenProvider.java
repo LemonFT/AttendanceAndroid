@@ -8,7 +8,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
-import com.example.hereiam.entity.JwtToken;
+import com.example.hereiam.mapping.JwtToken;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;

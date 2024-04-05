@@ -20,9 +20,9 @@
                 android:background="@drawable/brg_signin">
 
                 <ImageView
-                    android:id="@+id/open_navigationview"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/back_classses"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
                     android:src="@drawable/ic_back"/>
 
                 <TextView
@@ -30,11 +30,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Cơ sở dữ liệu"
-                    android:layout_marginLeft="50dp"
+                    android:layout_marginLeft="30dp"
                     android:textStyle="bold"
                     android:textAlignment="center"
                     android:textSize="20dp"
-                    android:layout_marginRight="100dp"/>
+                    android:layout_marginRight="60dp"/>
 
             </androidx.appcompat.widget.Toolbar>
 

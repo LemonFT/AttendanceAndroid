@@ -14,6 +14,7 @@ import com.example.certainlyhereiamfinal.model.Classroom;
 
 import java.util.List;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -82,6 +83,23 @@ public class ClassroomViewModel extends ViewModel {
             }
             @Override
             public void onFailure(Call<Classroom> call, Throwable t) {
+                Log.e("api failed", t.toString());
+            }
+        });
+        return  result;
+    }
+
+    public LiveData<String> deleteClass(Long classId){
+        MutableLiveData<String> result = new MutableLiveData<>();
+        Call<com.example.certainlyhereiamfinal.model.Response> call = iClassroomService.deleteClass(classId);
+        call.enqueue(new Callback<com.example.certainlyhereiamfinal.model.Response>() {
+            @Override
+            public void onResponse(Call<com.example.certainlyhereiamfinal.model.Response> call, Response<com.example.certainlyhereiamfinal.model.Response> response) {
+                result.setValue(response.isSuccessful() ? "200" : "400");
+            }
+
+            @Override
+            public void onFailure(Call<com.example.certainlyhereiamfinal.model.Response> call, Throwable t) {
                 Log.e("api failed", t.toString());
             }
         });

@@ -16,6 +16,6 @@ public interface ClassroomRepository extends JpaRepository<Classroom, Long> {
 
     public abstract Classroom findByName(String name);
 
-    @Query("SELECT c FROM Classroom c JOIN Member m ON c.id = m.classroom.id WHERE m.user.id = :userId")
+    @Query("SELECT c FROM Classroom c JOIN Member m ON c.id = m.classroom.id WHERE m.user.id = :userId AND m.status = 1")
     List<Classroom> findAllMasterMemberByUserId(@Param("userId") Long userId);
 }

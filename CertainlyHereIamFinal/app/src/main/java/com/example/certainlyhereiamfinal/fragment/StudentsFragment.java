@@ -13,21 +13,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.certainlyhereiamfinal.R;
-import com.example.certainlyhereiamfinal.adapter.StudentAdapter;
-import com.example.certainlyhereiamfinal.api.IClassroomService;
-import com.example.certainlyhereiamfinal.entityui.UserAttendance;
-import com.example.certainlyhereiamfinal.model.Member;
+import com.example.certainlyhereiamfinal.adapter.MemberAdapter;
 import com.example.certainlyhereiamfinal.store.DataLocalManager;
 import com.example.certainlyhereiamfinal.viewmodel.MemberViewModel;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class StudentsFragment extends Fragment {
 
     RecyclerView recyclerView;
-    StudentAdapter studentAdapter;
+    MemberAdapter studentAdapter;
 
     MemberViewModel memberViewModel;
 
@@ -41,7 +34,7 @@ public class StudentsFragment extends Fragment {
     }
 
     public void loadStudentsInClass(Context context, View view){
-        studentAdapter = new StudentAdapter(context, true);
+        studentAdapter = new MemberAdapter(context);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView = view.findViewById(R.id.studentsfr_recyclerview);
         recyclerView.setLayoutManager(linearLayoutManager);

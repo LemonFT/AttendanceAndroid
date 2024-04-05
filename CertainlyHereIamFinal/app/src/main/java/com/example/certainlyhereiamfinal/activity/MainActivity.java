@@ -1,15 +1,21 @@
 package com.example.certainlyhereiamfinal.activity;
 
+import static com.example.certainlyhereiamfinal.Global.showAlert;
+
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -33,6 +39,7 @@ import com.example.certainlyhereiamfinal.model.Classroom;
 import com.example.certainlyhereiamfinal.model.User;
 import com.example.certainlyhereiamfinal.store.DataLocalManager;
 import com.example.certainlyhereiamfinal.viewmodel.ClassroomViewModel;
+import com.example.certainlyhereiamfinal.viewmodel.MemberViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
@@ -51,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements ClassroomItemList
     private ClassroomAdapter classroomAdapter;
     private RecyclerView recyclerView;
     private ClassroomViewModel classroomViewModel;
+    private MemberViewModel memberViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +80,8 @@ public class MainActivity extends AppCompatActivity implements ClassroomItemList
         classroomAdapter = new ClassroomAdapter(this, this);
 
         classroomViewModel = new ViewModelProvider(this).get(ClassroomViewModel.class);
+
+        memberViewModel = new ViewModelProvider(this).get(MemberViewModel.class);
 
         loadingdata();
 
@@ -95,7 +105,26 @@ public class MainActivity extends AppCompatActivity implements ClassroomItemList
                 openJoinForm();
             }
         });
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Thoát ứng dụng")
+                        .setMessage("Bạn có chắc chắn muốn thoát ứng dụng?")
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.cancel, null)
+                        .show();
+            }
+        };
+
+        this.getOnBackPressedDispatcher().addCallback(this, callback);
     }
+
 
     public void loadingdata(){
         List<Classroom> classrooms = new ArrayList<>();
@@ -140,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements ClassroomItemList
             public void onClick(View v) {
                 String className = editText.getText().toString();
                 if(className.equals("") || className.equals(" ")){
-                    showAlert("Please, check your information again!");
+                    showAlert("Please, check your information again!", MainActivity.this);
                 }else {
                     User user = new User(DataLocalManager.getUserId());
                     classroomViewModel.insertClassroom(new Classroom(className, user)).observe(MainActivity.this, data -> {
@@ -148,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements ClassroomItemList
                             loadingdata();
                             dialog.dismiss();
                         }else {
-                            showAlert("Class name already exist");
+                            showAlert("Class name already exist", MainActivity.this);
                         }
                     });
                 }
@@ -241,10 +270,26 @@ public class MainActivity extends AppCompatActivity implements ClassroomItemList
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if(item.getItemId() == R.id.edit){
+                if(item.getItemId() == R.id.update){
                     openUpdateForm(classroom.getId());
                 }else if(item.getItemId() == R.id.copy){
                     copyText(view.getContext(), "certainlyhereiam?join_classid="+classroom.getId());
+                }else if(item.getItemId() == R.id.delete){
+                    classroomViewModel.deleteClass(classroom.getId()).observe(MainActivity.this, data -> {
+                        if(data.equals("200")){
+                            loadingdata();
+                        }else {
+                            showAlert("Delete failed, check internet again!", MainActivity.this);
+                        }
+                    });
+                }else if(item.getItemId() == R.id.out_room){
+                    memberViewModel.outClass(classroom.getId(), DataLocalManager.getUserId()).observe(MainActivity.this, data -> {
+                        if(data.equals("200")){
+                            loadingdata();
+                        }else {
+                            showAlert("Check internet again!", MainActivity.this);
+                        }
+                    });
                 }
                 return true;
             }
@@ -281,7 +326,7 @@ public class MainActivity extends AppCompatActivity implements ClassroomItemList
             public void onClick(View v) {
                 String className = editText.getText().toString();
                 if(className.equals("") || className.equals(" ")){
-                    showAlert("Please, check your information again!");
+                    showAlert("Please, check your information again!", MainActivity.this);
                 }else {
                     User user = new User(DataLocalManager.getUserId());
                     classroomViewModel.updateClassroom(new Classroom(classId, className, user)).observe(MainActivity.this, data -> {
@@ -289,7 +334,7 @@ public class MainActivity extends AppCompatActivity implements ClassroomItemList
                             loadingdata();
                             dialog.dismiss();
                         }else {
-                            showAlert("Class name already exist");
+                            showAlert("Class name already exist", MainActivity.this);
                         }
                     });
                 }
@@ -298,17 +343,6 @@ public class MainActivity extends AppCompatActivity implements ClassroomItemList
 
         dialog.show();
     }
-
-    public void showAlert(String content){
-        Toast toast = Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT);
-        View view = toast.getView();
-        view.setBackgroundColor(Color.RED);
-        TextView text = view.findViewById(android.R.id.message);
-        text.setTextColor(Color.WHITE);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
-    }
-
 
 
 }

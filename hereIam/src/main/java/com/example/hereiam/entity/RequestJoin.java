@@ -1,5 +1,7 @@
 package com.example.hereiam.entity;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,7 +23,7 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "request_join")
-public class RequestJoin {
+public class RequestJoin implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;

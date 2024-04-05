@@ -9,8 +9,11 @@ import org.springframework.stereotype.Service;
 import com.example.hereiam.entity.Classroom;
 import com.example.hereiam.entity.Member;
 import com.example.hereiam.entity.User;
+import com.example.hereiam.repository.AttendanceRepository;
 import com.example.hereiam.repository.ClassroomRepository;
 import com.example.hereiam.repository.MemberRepository;
+import com.example.hereiam.repository.RequestJoinRepository;
+import com.example.hereiam.repository.SessionRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -22,6 +25,15 @@ public class ClassroomService implements IClassroomService {
     @Autowired
     private MemberRepository memberRepository;
 
+    @Autowired
+    private SessionRepository sessionRepository;
+
+    @Autowired
+    private AttendanceRepository attendanceRepository;
+
+    @Autowired
+    private RequestJoinRepository requestJoinRepository;
+
     @SuppressWarnings({ "unused", "null" })
     @Override
     @Transactional(rollbackOn = Exception.class)
@@ -30,7 +42,7 @@ public class ClassroomService implements IClassroomService {
         if (classroomReturn != null) {
             User user = new User(classroomReturn.getUser().getId());
             Classroom clr = new Classroom(classroomReturn.getId());
-            Member member = memberRepository.save(new Member(null, user, clr, 1L));
+            Member member = memberRepository.save(new Member(null, user, clr, 1L, 1));
             if (member != null) {
                 return classroomReturn;
             }
@@ -61,6 +73,23 @@ public class ClassroomService implements IClassroomService {
     @Override
     public Classroom findByName(String name) {
         return classroomRepository.findByName(name);
+    }
+
+    @SuppressWarnings("null")
+    @Override
+    @Transactional(rollbackOn = Exception.class)
+    public boolean deleteClassroomById(Long classId) {
+        try {
+            memberRepository.deleteByClassroomId(classId);
+            sessionRepository.deleteByClassroomId(classId);
+            attendanceRepository.deleteByClassroomId(classId);
+            requestJoinRepository.deleteByClassroomId(classId);
+            classroomRepository.deleteById(classId);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 }

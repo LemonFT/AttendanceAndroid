@@ -13,6 +13,7 @@ import com.example.certainlyhereiamfinal.model.Member;
 
 import java.util.List;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -64,6 +65,23 @@ public class MemberViewModel extends ViewModel {
             }
         });
         return result;
+    }
+
+    public LiveData<String> outClass(Long classId, Long userId){
+        MutableLiveData<String> result = new MutableLiveData<>();
+        Call<RequestBody> call = iMemberService.outClass(classId, userId);
+        call.enqueue(new Callback<RequestBody>() {
+            @Override
+            public void onResponse(Call<RequestBody> call, Response<RequestBody> response) {
+                result.setValue(response.isSuccessful() ? "200" : "400");
+            }
+
+            @Override
+            public void onFailure(Call<RequestBody> call, Throwable t) {
+                Log.e("api failed", t.toString());
+            }
+        });
+        return  result;
     }
 
 }

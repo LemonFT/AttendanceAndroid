@@ -1,17 +1,18 @@
 package com.example.certainlyhereiamfinal.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.certainlyhereiamfinal.R;
-import com.example.certainlyhereiamfinal.entityui.UserAttendance;
 import com.example.certainlyhereiamfinal.model.Member;
 import com.squareup.picasso.Picasso;
 
@@ -22,18 +23,17 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHolder>{
+public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder> {
 
     private Context context;
-    private boolean delete;
+
     private List<Member> members;
 
-    public StudentAdapter(Context context, boolean delete) {
+    public MemberAdapter(Context context) {
         this.context = context;
-        this.delete = delete;
     }
 
-    public void setStudents(List<Member> members){
+    public void setStudents(List<Member> members) {
         this.members = members;
         notifyDataSetChanged();
     }
@@ -41,23 +41,28 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.student_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.member_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Member member = members.get(position);
-        if(member != null){
-            if(member.getUser().getAvatar() == null){
+        if (member != null) {
+            if (member.getUser().getAvatar() == null) {
                 Picasso.get().load("https://th.bing.com/th/id/OIP.pG2K1J6nAStrFbo1rsU-VwAAAA?rs=1&pid=ImgDetMain").into(holder.avatar);
-            }else {
+            } else {
                 Picasso.get().load(member.getUser().getAvatar()).into(holder.avatar);
             }
             holder.name.setText(member.getUser().getEmail());
             holder.identifier.setText(member.getUser().getIdentifier());
-            if(!delete){
+
+            if (member.getRole() == 1) {
                 holder.icon_trash.setVisibility(View.GONE);
+                holder.icon_master.setVisibility(View.VISIBLE);
+            } else {
+                holder.icon_trash.setVisibility(View.VISIBLE);
+                holder.icon_master.setVisibility(View.GONE);
             }
         }
     }
@@ -72,11 +77,14 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
         DateFormat dateFormat = new SimpleDateFormat(format);
         return dateFormat.format(date);
     }
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private CircleImageView avatar;
+
         private TextView name, identifier, time_attendance;
-        private ImageView icon_trash;
+        private ImageView icon_trash, icon_master;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             avatar = itemView.findViewById(R.id.avatar);
@@ -84,7 +92,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
             identifier = itemView.findViewById(R.id.identifier);
             time_attendance = itemView.findViewById(R.id.time_attendance);
             icon_trash = itemView.findViewById(R.id.icon_trash);
-
+            icon_master = itemView.findViewById(R.id.icon_master);
         }
     }
 }

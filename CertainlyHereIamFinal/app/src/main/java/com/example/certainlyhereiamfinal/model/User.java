@@ -17,13 +17,17 @@ public class User {
         this.avatar = avatar;
     }
 
+
+
     public User(String email, String password) {
         this.email = email;
         this.password = password;
     }
 
-    public User(Long id) {
-        this.id = id;
+    public User(String email, String identifier, String avatar) {
+        this.email = email;
+        this.identifier = identifier;
+        this.avatar = avatar;
     }
 
     public User(Long id, String fullname, String identifier, String avatar) {
@@ -31,6 +35,10 @@ public class User {
         this.fullname = fullname;
         this.identifier = identifier;
         this.avatar = avatar;
+    }
+
+    public User(Long id) {
+        this.id = id;
     }
 
     public Long getId() {

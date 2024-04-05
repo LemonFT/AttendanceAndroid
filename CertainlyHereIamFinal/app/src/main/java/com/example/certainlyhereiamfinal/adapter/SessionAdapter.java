@@ -1,5 +1,6 @@
 package com.example.certainlyhereiamfinal.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -72,14 +73,16 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
                 public void onClick(View v) {
                     if(session.getClassroom().getUser().getId() == DataLocalManager.getUserId()){
                         Intent intent = new Intent(context, AttendanceActivity.class);
-                        intent.putExtra("qrcode", session.getQr());
-                        intent.putExtra("class_id", session.getClassroom().getId());
+                        intent.putExtra("qrCode", session.getQr());
+                        intent.putExtra("classId", session.getClassroom().getId());
                         context.startActivity(intent);
+                        ((Activity) context).finish();
                     }else{
                         Intent intent = new Intent(context, AttendanceMemberActivity.class);
-                        intent.putExtra("qrcode", session.getQr());
-                        intent.putExtra("class_id", session.getClassroom().getId());
+                        intent.putExtra("qrCode", session.getQr());
+                        intent.putExtra("classId", session.getClassroom().getId());
                         context.startActivity(intent);
+                        ((Activity) context).finish();
                     }
                 }
             });
@@ -88,7 +91,7 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return sessions.size();
+        return sessions != null ? sessions.size() : 0;
     }
 
     public static String formatDate(Date date, String format) {
