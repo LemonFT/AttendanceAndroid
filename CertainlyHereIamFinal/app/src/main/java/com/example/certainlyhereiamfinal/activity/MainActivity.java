@@ -1,8 +1,10 @@
 package com.example.certainlyhereiamfinal.activity;
 
 import static com.example.certainlyhereiamfinal.Global.showAlert;
+import static com.example.certainlyhereiamfinal.Global.showAlertSuccess;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
@@ -16,6 +18,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -60,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements ClassroomItemList
     private ClassroomViewModel classroomViewModel;
     private MemberViewModel memberViewModel;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +94,18 @@ public class MainActivity extends AppCompatActivity implements ClassroomItemList
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(navigationView);
+            }
+        });
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if(item.getItemId() == R.id.signout){
+                    Intent intent = new Intent(MainActivity.this, SignInActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                return true;
             }
         });
 
@@ -213,28 +230,39 @@ public class MainActivity extends AppCompatActivity implements ClassroomItemList
         joinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int class_id = getIdClassFromUrl(editText.getText().toString());
-                if(class_id == -1){
+                String urlClass = editText.getText().toString();
+                Long classId = getIdClassFromUrl(urlClass);
+                if(classId == -1){
                     Toast.makeText(v.getContext(), "Url invalid!", Toast.LENGTH_SHORT).show();
+                    return;
                 }
-//                dialog.dismiss();
+                memberViewModel.joinClass(classId, DataLocalManager.getUserId()).observe(MainActivity.this, data -> {
+                    if(data.equals("Participate in class successfully")){
+                        showAlertSuccess("Participate in class successfully", MainActivity.this);
+                        loadingdata();
+                    }else {
+                        showAlert(data, MainActivity.this);
+                        loadingdata();
+                    }
+                });
+                dialog.dismiss();
             }
         });
 
         dialog.show();
     }
 
-    private int getIdClassFromUrl(String url){
+    private Long getIdClassFromUrl(String url){
         int startIndex = url.indexOf("certainlyhereiam?join_classid=");
         if (startIndex != -1) {
             String classIdString = url.substring(startIndex + "certainlyhereiam?join_classid=".length());
             try {
-                return Integer.parseInt(classIdString);
+                return Long.parseLong(classIdString);
             } catch (NumberFormatException e) {
-                return -1;
+                return -1L;
             }
         }
-        return -1;
+        return -1L;
     }
 
     public static void copyText(Context context, String textToCopy) {
@@ -284,10 +312,12 @@ public class MainActivity extends AppCompatActivity implements ClassroomItemList
                     });
                 }else if(item.getItemId() == R.id.out_room){
                     memberViewModel.outClass(classroom.getId(), DataLocalManager.getUserId()).observe(MainActivity.this, data -> {
-                        if(data.equals("200")){
+                        if(data.equals("You have left the class")){
+                            showAlertSuccess("You have left the class", MainActivity.this);
                             loadingdata();
                         }else {
                             showAlert("Check internet again!", MainActivity.this);
+                            loadingdata();
                         }
                     });
                 }

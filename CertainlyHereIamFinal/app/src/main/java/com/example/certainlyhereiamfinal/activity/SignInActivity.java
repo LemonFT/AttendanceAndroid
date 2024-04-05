@@ -1,5 +1,7 @@
 package com.example.certainlyhereiamfinal.activity;
 
+import static com.example.certainlyhereiamfinal.Global.showAlertSuccess;
+import static com.example.certainlyhereiamfinal.Global.showAlert;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,8 +17,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.certainlyhereiamfinal.Global;
 import com.example.certainlyhereiamfinal.R;
-import com.example.certainlyhereiamfinal.model.FirstSign;
 import com.example.certainlyhereiamfinal.store.DataLocalManager;
 import com.example.certainlyhereiamfinal.viewmodel.SigninViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -81,10 +83,12 @@ public class SignInActivity extends AppCompatActivity {
                             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
+                        }else {
+                            showAlert("Account doesn't not exist", SignInActivity.this);
                         }
                     });
                 }else {
-                    showAlert(resultValidate);
+                    showAlert(resultValidate, SignInActivity.this);
                 }
             }
         });
@@ -102,31 +106,16 @@ public class SignInActivity extends AppCompatActivity {
                             signinEdtPwd.setText(password);
                             registerEdtEmail.setText("");
                             registerEdtPwd.setText("");
-                            Toast toast = Toast.makeText(getApplicationContext(), "Register is successfully", Toast.LENGTH_SHORT);
-                            View view = toast.getView();
-                            view.setBackgroundColor(Color.WHITE);
-                            TextView text = view.findViewById(android.R.id.message);
-                            text.setTextColor(Color.GREEN);
-                            toast.setGravity(Gravity.CENTER, 0, 0);
-                            toast.show();
+                            showAlertSuccess("Register is successfully", SignInActivity.this);
                             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                         }
                     });
                 }else {
-                    showAlert(resultValidate);
+                    showAlert(resultValidate, SignInActivity.this);
                 }
             }
         });
 
-    }
-    public void showAlert(String content){
-        Toast toast = Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT);
-        View view = toast.getView();
-        view.setBackgroundColor(Color.RED);
-        TextView text = view.findViewById(android.R.id.message);
-        text.setTextColor(Color.WHITE);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
     }
 
     private String validatingForm(String email, String pwd){

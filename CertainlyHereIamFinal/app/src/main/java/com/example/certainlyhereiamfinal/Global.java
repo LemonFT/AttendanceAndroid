@@ -18,4 +18,14 @@ public class Global {
         toast.show();
     }
 
+    public static void showAlertSuccess(String content, Context context){
+        Toast toast = Toast.makeText(context, content, Toast.LENGTH_SHORT);
+        View view = toast.getView();
+        view.setBackgroundResource(R.drawable.toast_background_success);
+        TextView text = view.findViewById(android.R.id.message);
+        text.setTextColor(Color.WHITE);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
+    }
+
 }

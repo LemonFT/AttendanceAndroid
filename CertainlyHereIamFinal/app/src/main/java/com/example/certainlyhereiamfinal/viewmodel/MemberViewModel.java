@@ -69,19 +69,44 @@ public class MemberViewModel extends ViewModel {
 
     public LiveData<String> outClass(Long classId, Long userId){
         MutableLiveData<String> result = new MutableLiveData<>();
-        Call<RequestBody> call = iMemberService.outClass(classId, userId);
-        call.enqueue(new Callback<RequestBody>() {
+        Call<com.example.certainlyhereiamfinal.model.Response> call = iMemberService.outClass(classId, userId);
+        call.enqueue(new Callback<com.example.certainlyhereiamfinal.model.Response>() {
             @Override
-            public void onResponse(Call<RequestBody> call, Response<RequestBody> response) {
-                result.setValue(response.isSuccessful() ? "200" : "400");
+            public void onResponse(Call<com.example.certainlyhereiamfinal.model.Response> call, Response<com.example.certainlyhereiamfinal.model.Response> response) {
+                result.setValue(response.isSuccessful() ? "You have left the class" : "Check internet and try again!");
             }
 
             @Override
-            public void onFailure(Call<RequestBody> call, Throwable t) {
+            public void onFailure(Call<com.example.certainlyhereiamfinal.model.Response> call, Throwable t) {
                 Log.e("api failed", t.toString());
+                result.setValue("Check internet and try again!");
             }
         });
         return  result;
+    }
+
+    public LiveData<String> joinClass(Long classId, Long userId){
+        MutableLiveData<String> result = new MutableLiveData<>();
+        Call<com.example.certainlyhereiamfinal.model.Response> call = iMemberService.joinClass(classId, userId);
+        call.enqueue(new Callback<com.example.certainlyhereiamfinal.model.Response>() {
+            @Override
+            public void onResponse(Call<com.example.certainlyhereiamfinal.model.Response> call, Response<com.example.certainlyhereiamfinal.model.Response> response) {
+                if(response.isSuccessful()){
+                    result.setValue("Participate in class successfully");
+                }else if(response.code() == 409){
+                    result.setValue("You already exist in the classroom");
+                }else{
+                    result.setValue("Check internet and try again");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<com.example.certainlyhereiamfinal.model.Response> call, Throwable t) {
+                Log.e("api failed", t.toString());
+                result.setValue("Check internet and try again");
+            }
+        });
+        return result;
     }
 
 }

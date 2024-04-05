@@ -1,9 +1,11 @@
 package com.example.certainlyhereiamfinal.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,5 +36,16 @@ public class AttendanceMemberActivity extends AppCompatActivity {
                 }
             }
         });
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Intent intent1 = new Intent(AttendanceMemberActivity.this, SessionsMemberActivity.class);
+                startActivity(intent1);
+                finish();
+            }
+        };
+
+        this.getOnBackPressedDispatcher().addCallback(this, callback);
     }
 }

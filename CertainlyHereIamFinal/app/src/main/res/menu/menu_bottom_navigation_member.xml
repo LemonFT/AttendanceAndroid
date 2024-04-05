@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/item_sessions" android:title="Sessions" android:icon="@drawable/ic_session"/>
+    <item android:id="@+id/item_sessions_member" android:title="Sessions" android:icon="@drawable/ic_session"/>
     <item android:id="@+id/item_scanqr" android:title="Scan QR" android:icon="@drawable/ic_qr"/>
-    <item android:id="@+id/item_students" android:title="Student" android:icon="@drawable/ic_users"/>
+    <item android:id="@+id/item_students_member" android:title="Student" android:icon="@drawable/ic_users"/>
 </menu>

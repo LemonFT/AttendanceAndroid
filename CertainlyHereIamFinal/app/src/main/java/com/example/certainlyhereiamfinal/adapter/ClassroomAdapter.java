@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.certainlyhereiamfinal.R;
 import com.example.certainlyhereiamfinal.activity.SessionsActivity;
 import com.example.certainlyhereiamfinal.activity.SessionsMemberActivity;
-import com.example.certainlyhereiamfinal.entityui.ClassroomUI;
 import com.example.certainlyhereiamfinal.model.Classroom;
 import com.example.certainlyhereiamfinal.store.DataLocalManager;
 
