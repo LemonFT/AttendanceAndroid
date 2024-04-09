@@ -25,6 +25,8 @@
         android:layout_height="45dp"
         android:background="@drawable/custom_edittext"
         android:padding="15dp"
+        android:textColorHint="@color/gray"
+        android:textColor="@color/black"
         android:textSize="14dp"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"

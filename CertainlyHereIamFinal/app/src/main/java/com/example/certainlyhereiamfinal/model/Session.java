@@ -5,27 +5,54 @@ import java.util.Date;
 public class Session {
     private Long id;
     private String room;
-    private String location;
     private Date dateInit;
     private Date timeEnd;
     private Classroom classroom;
     private String qr;
 
-    public Session(Long id, String room, String location, Date dateInit, Date timeEnd, Classroom classroom, String qr) {
+    private double latitude;
+    private double longitude;
+    public Session(Date timeEnd, Classroom classroom, String qr) {
+        this.timeEnd = timeEnd;
+        this.classroom = classroom;
+        this.qr = qr;
+    }
+
+    public Session(Long id, String room, Date dateInit, Date timeEnd, Classroom classroom, String qr) {
         this.id = id;
         this.room = room;
-        this.location = location;
         this.dateInit = dateInit;
         this.timeEnd = timeEnd;
         this.classroom = classroom;
         this.qr = qr;
     }
-    public Session(String room, String location, Date dateInit, Date timeEnd, Classroom classroom) {
+
+    public Session(Long id, String room, Date dateInit, Date timeEnd, Classroom classroom, String qr, double latitude, double longitude) {
+        this.id = id;
         this.room = room;
-        this.location = location;
         this.dateInit = dateInit;
         this.timeEnd = timeEnd;
         this.classroom = classroom;
+        this.qr = qr;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public Session(String room, Date dateInit, Date timeEnd, Classroom classroom) {
+        this.room = room;
+        this.dateInit = dateInit;
+        this.timeEnd = timeEnd;
+        this.classroom = classroom;
+    }
+
+    public Session(String room, Date dateInit, Date timeEnd, Classroom classroom, double latitude, double longitude) {
+        this.room = room;
+        this.dateInit = dateInit;
+        this.timeEnd = timeEnd;
+        this.classroom = classroom;
+        this.qr = qr;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public Long getId() {
@@ -45,12 +72,21 @@ public class Session {
         this.room = room;
     }
 
-    public String getLocation() {
-        return location;
+
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     public Date getDateInit() {

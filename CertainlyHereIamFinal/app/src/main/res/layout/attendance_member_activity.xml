@@ -2,11 +2,13 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/tool_bar"
@@ -21,15 +23,16 @@
                 android:background="@drawable/brg_signin">
 
                 <ImageView
-                    android:id="@+id/open_navigationview"
+                    android:id="@+id/back_session_member"
                     android:layout_width="30dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:src="@drawable/ic_back"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Thông tin điểm danh"
+                    android:textColor="@color/black"
                     android:layout_marginLeft="30dp"
                     android:textStyle="bold"
                     android:textAlignment="center"
@@ -46,29 +49,32 @@
             android:layout_below="@+id/tool_bar"
             android:orientation="vertical"
             android:gravity="center">
+
+
             <TextView
                 android:id="@+id/checked"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Đã điểm danh"
                 android:drawableRight="@drawable/ic_check"
                 android:textStyle="bold"
+                android:textColor="@color/black"
                 android:textSize="25dp"/>
 
             <TextView
                 android:id="@+id/check"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Chưa điểm danh"
                 android:autoSizeMaxTextSize="100dp"
                 android:textStyle="bold"
                 android:drawableRight="@drawable/ic_timelate"
+                android:visibility="gone"
                 android:textSize="25dp"/>
+
         </LinearLayout>
-
-
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/attendance_btn"
@@ -78,9 +84,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginBottom="16dp"
             android:layout_marginEnd="16dp"
-            android:src="@drawable/ic_plus"
-            app:maxImageSize="50dp"
-            />
+            android:src="@drawable/ic_plus"/>
     </RelativeLayout>
 
     <include layout="@layout/attendance_member_bottomsheet"/>

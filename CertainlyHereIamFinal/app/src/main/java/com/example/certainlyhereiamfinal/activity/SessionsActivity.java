@@ -1,8 +1,9 @@
 package com.example.certainlyhereiamfinal.activity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import static com.example.certainlyhereiamfinal.Global.cutString;
+
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,17 +17,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.certainlyhereiamfinal.Global;
 import com.example.certainlyhereiamfinal.R;
 import com.example.certainlyhereiamfinal.adapter.ViewPagerAdapter;
+import com.example.certainlyhereiamfinal.fragment.SessionsFragment;
 import com.example.certainlyhereiamfinal.store.DataLocalManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import org.w3c.dom.Text;
-
 public class SessionsActivity extends AppCompatActivity {
 
-    private static ViewPager mViewPager;
-    private static BottomNavigationView mBottomNavigationView;
+    private ViewPager mViewPager;
+    private BottomNavigationView mBottomNavigationView;
     private TextView title_class_name;
     private ImageView back_classses;
 
@@ -43,10 +44,9 @@ public class SessionsActivity extends AppCompatActivity {
 
         title_class_name = findViewById(R.id.title_class_name);
 
-        title_class_name.setText(DataLocalManager.getClassname());
+        title_class_name.setText(cutString(DataLocalManager.getClassname(), 30));
 
         back_classses = findViewById(R.id.back_classses);
-
         back_classses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,5 +113,6 @@ public class SessionsActivity extends AppCompatActivity {
 
         this.getOnBackPressedDispatcher().addCallback(this, callback);
     }
+
 
 }

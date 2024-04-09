@@ -25,4 +25,6 @@ public interface SessionRepository extends JpaRepository<Session, Long> {
     @Modifying
     @Query("DELETE FROM Session s WHERE s.classroom.id = :classId")
     public abstract void deleteByClassroomId(Long classId);
+
+    public abstract Session findByQr(String qr);
 }

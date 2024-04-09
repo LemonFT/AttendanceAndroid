@@ -63,4 +63,25 @@ public class SigninViewModel extends ViewModel {
         });
         return result;
     }
+
+    public LiveData<User> updateProfile(User user){
+        MutableLiveData<User> result = new MutableLiveData<>();
+        Call<User> call = userService.updateProfile(user);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if(response.isSuccessful()){
+                    result.setValue(response.body());
+                }else {
+                    result.setValue(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.e("api failed", t.toString());
+            }
+        });
+        return result;
+    }
 }

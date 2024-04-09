@@ -31,15 +31,16 @@
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nguyễn Vũ Quốc Lâm"
+            android:textColor="@color/black"
+            android:text="nguyenthiennam.npk@gmail.com"
             android:textStyle="bold"
-            android:textSize="15dp"/>
+            android:textSize="13dp"/>
         <TextView
             android:id="@+id/identifier"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:textSize="13dp"
+            android:textSize="12dp"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:text="ID: 3121410292"/>
         <TextView
@@ -47,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textSize="12dp"
+            android:textSize="10dp"
             android:textColor="@color/gray"
             android:text="Attendance time: 09:20"/>
     </LinearLayout>

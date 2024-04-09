@@ -17,4 +17,6 @@ public interface ISessionService {
 
     public abstract boolean validTime(String qr, Date timeAtt);
 
+    public abstract Session findSessionByQr(String qr);
+
 }

@@ -92,10 +92,8 @@ public class MemberViewModel extends ViewModel {
             @Override
             public void onResponse(Call<com.example.certainlyhereiamfinal.model.Response> call, Response<com.example.certainlyhereiamfinal.model.Response> response) {
                 if(response.isSuccessful()){
-                    result.setValue("Participate in class successfully");
-                }else if(response.code() == 409){
-                    result.setValue("You already exist in the classroom");
-                }else{
+                    result.setValue(response.body().getData());
+                }else {
                     result.setValue("Check internet and try again");
                 }
             }

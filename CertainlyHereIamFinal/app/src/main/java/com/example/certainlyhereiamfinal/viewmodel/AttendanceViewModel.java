@@ -52,7 +52,6 @@ public class AttendanceViewModel extends ViewModel {
     public LiveData<List<Member>> findUsersNoAttendanceYet(Long classId, String qr){
         MutableLiveData<List<Member>> result = new MutableLiveData<>();
         Call<List<Member>> call = iAttendanceService.findUsersNoAttendanceYet(new AttendanceRequest(classId, qr));
-        Log.e("ânnna", qr);
         call.enqueue(new Callback<List<Member>>() {
             @Override
             public void onResponse(Call<List<Member>> call, Response<List<Member>> response) {
@@ -71,24 +70,75 @@ public class AttendanceViewModel extends ViewModel {
         return  result;
     }
 
-    public LiveData<Attendance> insertAttendance(Attendance attendance){
-        MutableLiveData<Attendance> result = new MutableLiveData<>();
-        Call<Attendance> call = iAttendanceService.insertAttendance(attendance);
-        call.enqueue(new Callback<Attendance>() {
+    public LiveData<String> insertAttendance(Attendance attendance){
+        MutableLiveData<String> result = new MutableLiveData<>();
+        Call<com.example.certainlyhereiamfinal.model.Response> call = iAttendanceService.insertAttendance(attendance);
+        call.enqueue(new Callback<com.example.certainlyhereiamfinal.model.Response>() {
             @Override
-            public void onResponse(Call<Attendance> call, Response<Attendance> response) {
-                if(response.isSuccessful()){
-                    result.setValue(response.body());
-                }else {
-                    result.setValue(null);
-                }
+            public void onResponse(Call<com.example.certainlyhereiamfinal.model.Response> call, Response<com.example.certainlyhereiamfinal.model.Response> response) {
+                result.setValue(response.body().getData());
             }
 
             @Override
-            public void onFailure(Call<Attendance> call, Throwable t) {
+            public void onFailure(Call<com.example.certainlyhereiamfinal.model.Response> call, Throwable t) {
                 Log.e("api failed", t.toString());
+                result.setValue("Check internet and try again");
             }
         });
         return result;
     }
+
+    public LiveData<String> checkAttendanceUser(Attendance attendance){
+        MutableLiveData<String> result = new MutableLiveData<>();
+        Call<com.example.certainlyhereiamfinal.model.Response> call = iAttendanceService.checkAttendanceUser(attendance);
+        call.enqueue(new Callback<com.example.certainlyhereiamfinal.model.Response>() {
+            @Override
+            public void onResponse(Call<com.example.certainlyhereiamfinal.model.Response> call, Response<com.example.certainlyhereiamfinal.model.Response> response) {
+                result.setValue(response.isSuccessful() ? "checked" : "nocheckyet");
+            }
+
+            @Override
+            public void onFailure(Call<com.example.certainlyhereiamfinal.model.Response> call, Throwable t) {
+                Log.e("api failed", t.toString());
+                result.setValue("nocheckyet");
+            }
+        });
+        return  result;
+    }
+
+
+    public LiveData<String> insertAttendanceMember(Attendance attendance, double latitude, double longitude){
+        MutableLiveData<String> result = new MutableLiveData<>();
+        Call<com.example.certainlyhereiamfinal.model.Response> call = iAttendanceService.insertAttendanceMember(attendance, latitude, longitude);
+        call.enqueue(new Callback<com.example.certainlyhereiamfinal.model.Response>() {
+            @Override
+            public void onResponse(Call<com.example.certainlyhereiamfinal.model.Response> call, Response<com.example.certainlyhereiamfinal.model.Response> response) {
+                result.setValue(response.body().getData());
+            }
+
+            @Override
+            public void onFailure(Call<com.example.certainlyhereiamfinal.model.Response> call, Throwable t) {
+                result.setValue("Check internet and try again");
+            }
+        });
+        return result;
+    }
+
+    public LiveData<String> insertAttendanceMemberQr(Attendance attendance, double latitude, double longitude){
+        MutableLiveData<String> result = new MutableLiveData<>();
+        Call<com.example.certainlyhereiamfinal.model.Response> call = iAttendanceService.insertAttendanceMemberQr(attendance, latitude, longitude);
+        call.enqueue(new Callback<com.example.certainlyhereiamfinal.model.Response>() {
+            @Override
+            public void onResponse(Call<com.example.certainlyhereiamfinal.model.Response> call, Response<com.example.certainlyhereiamfinal.model.Response> response) {
+                result.setValue(response.body().getData());
+            }
+
+            @Override
+            public void onFailure(Call<com.example.certainlyhereiamfinal.model.Response> call, Throwable t) {
+                result.setValue("Check internet and try again");
+            }
+        });
+        return result;
+    }
+
 }

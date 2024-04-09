@@ -35,4 +35,8 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
         @Modifying
         @Query("DELETE FROM Attendance a WHERE a.classroom.id = :classId")
         public abstract void deleteByClassroomId(Long classId);
+
+        @Query("SELECT a FROM Attendance a WHERE a.user.id = :userId AND a.classroom.id = :classId AND a.qr = :qr")
+        public abstract Attendance checkAttendanceUser(@Param("userId") Long userId, @Param("classId") Long classId,
+                        @Param("qr") String qr);
 }

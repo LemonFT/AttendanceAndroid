@@ -3,6 +3,8 @@ package com.example.certainlyhereiamfinal.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +68,11 @@ public class ClassroomAdapter extends RecyclerView.Adapter<ClassroomAdapter.MyHo
                     }
                 }
             });
-            holder.master_room.setText(classroom.getUser().getEmail());
+            if(classroom.getUser().getId() == DataLocalManager.getUserId()){
+                holder.master_room.setText("your class");
+            }else {
+                holder.master_room.setText(classroom.getUser().getEmail());
+            }
             holder.class_name.setText(classroom.getName());
             holder.see_more.setOnClickListener(new View.OnClickListener() {
                 @Override

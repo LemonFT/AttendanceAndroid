@@ -23,8 +23,6 @@ public class ViewPagerMemberAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position){
-            case 0:
-                return new SessionsMemberFragment();
             case 1:
                 return new ScanQRFragment();
             case 2:

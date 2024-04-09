@@ -8,4 +8,6 @@ public interface IUserService {
     public abstract User signin(User user);
 
     public abstract User findByEmailAndIdentifierInClass(String email, String identifier, Long classId);
+
+    public abstract User updateProfile(User user);
 }

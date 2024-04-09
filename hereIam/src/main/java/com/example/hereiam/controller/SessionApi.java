@@ -32,8 +32,6 @@ public class SessionApi {
 
     @PostMapping("/session")
     public ResponseEntity<?> insertSession(@RequestBody Session session) {
-        System.err.println(session.toString());
-        System.err.println(session.getClass().toString());
         Dotenv env = Dotenv.configure().load();
         String keySecret = env.get("REACT_APP_SECRETKEY");
         session.setQr(keySecret + session.getClassroom().getId() + UUID.randomUUID());

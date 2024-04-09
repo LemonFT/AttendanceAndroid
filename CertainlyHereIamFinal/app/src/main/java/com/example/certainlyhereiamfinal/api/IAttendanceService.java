@@ -4,6 +4,7 @@ package com.example.certainlyhereiamfinal.api;
 import com.example.certainlyhereiamfinal.model.Attendance;
 import com.example.certainlyhereiamfinal.model.AttendanceRequest;
 import com.example.certainlyhereiamfinal.model.Member;
+import com.example.certainlyhereiamfinal.model.Response;
 import com.example.certainlyhereiamfinal.model.User;
 
 import java.util.List;
@@ -24,7 +25,15 @@ public interface IAttendanceService {
     Call<List<Member>> findUsersNoAttendanceYet(@Body AttendanceRequest request);
 
     @POST("attendance-master")
-    Call<Attendance> insertAttendance(@Body Attendance attendance);
+    Call<Response> insertAttendance(@Body Attendance attendance);
+
+    @POST("attendance/{latitude}/{longitude}")
+    Call<Response> insertAttendanceMember(@Body Attendance attendance, @Path("latitude") double latitude, @Path("longitude") double longitude);
+
+    @POST("attendance-qr/{latitude}/{longitude}")
+    Call<Response> insertAttendanceMemberQr(@Body Attendance attendance, @Path("latitude") double latitude, @Path("longitude") double longitude);
+    @POST("attendance-user")
+    Call<Response> checkAttendanceUser(@Body Attendance attendance);
 
 
 }

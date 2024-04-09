@@ -1,5 +1,7 @@
 package com.example.hereiam.service;
 
+import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,17 @@ public class UserService implements IUserService {
     @Override
     public User findByEmailAndIdentifierInClass(String email, String identifier, Long classId) {
         return userRepository.findUserByEmailOrIdentifierInClass(email, identifier, classId);
+    }
+
+    @Override
+    public User updateProfile(User user) {
+        User similarUser = userRepository.findByEmail(user.getEmail());
+        if (!Objects.equals(similarUser.getId(), user.getId())) {
+            return null;
+        }
+        user.setPassword(similarUser.getPassword());
+        User userReturn = userRepository.save(user);
+        return userReturn;
     }
 
 }

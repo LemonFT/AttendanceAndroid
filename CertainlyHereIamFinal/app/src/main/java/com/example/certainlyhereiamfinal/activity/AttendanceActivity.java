@@ -1,6 +1,8 @@
 package com.example.certainlyhereiamfinal.activity;
 
+import static com.example.certainlyhereiamfinal.Global.isValidEmail;
 import static com.example.certainlyhereiamfinal.Global.showAlert;
+import static com.example.certainlyhereiamfinal.Global.showAlertSuccess;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -147,7 +149,7 @@ public class AttendanceActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String emailStr = edtEmail.getText().toString();
                 String identifierStr = edtIdentifier.getText().toString();
-                if(emailStr.equals("") && identifierStr.equals("")){
+                if(emailStr.equals("") || identifierStr.equals("")){
                     showAlert("Check information and try again!", AttendanceActivity.this);
                     return;
                 }
@@ -159,11 +161,16 @@ public class AttendanceActivity extends AppCompatActivity {
                 Classroom classroom = new Classroom(classId);
                 Attendance attendance = new Attendance(user, classroom, qr, new Date());
                 attendanceViewModel.insertAttendance(attendance).observe(AttendanceActivity.this, data -> {
-                    if(data != null){
-                        firstLoading(classId, qr);
-                        bottomSheetBehaviorHelp.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    if(data.equals("Attendance succcessfully")){
+                        runOnUiThread(() -> {
+                            firstLoading(classId, qr);
+                            showAlertSuccess("Attendance succcessfully", AttendanceActivity.this);
+                            bottomSheetBehaviorHelp.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                        });
                     }else {
-                        showAlert("Attendance failed!", AttendanceActivity.this);
+                        firstLoading(classId, qr);
+                        showAlert(data, AttendanceActivity.this);
+                        bottomSheetBehaviorHelp.setState(BottomSheetBehavior.STATE_COLLAPSED);
                     }
                 });
             }
@@ -234,10 +241,5 @@ public class AttendanceActivity extends AppCompatActivity {
     }
 
 
-    public static boolean isValidEmail(String email) {
-        Pattern pattern = Pattern.compile(EMAIL_REGEX);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
-    }
 
 }

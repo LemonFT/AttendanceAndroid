@@ -1,16 +1,20 @@
 package com.example.certainlyhereiamfinal.activity;
 
+import static com.example.certainlyhereiamfinal.Global.REQUIRED_PERMISSIONS;
+import static com.example.certainlyhereiamfinal.Global.allPermissionsGranted;
 import static com.example.certainlyhereiamfinal.Global.showAlert;
 import static com.example.certainlyhereiamfinal.Global.showAlertSuccess;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -46,9 +50,12 @@ import com.example.certainlyhereiamfinal.viewmodel.MemberViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements ClassroomItemListenner {
 
@@ -62,9 +69,10 @@ public class MainActivity extends AppCompatActivity implements ClassroomItemList
     private RecyclerView recyclerView;
     private ClassroomViewModel classroomViewModel;
     private MemberViewModel memberViewModel;
+    private TextView email_user;
+    private CircleImageView avatar;
 
-
-
+    private static final int REQUEST_CODE_PERMISSIONS = 123;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,13 +90,29 @@ public class MainActivity extends AppCompatActivity implements ClassroomItemList
 
         recyclerView = findViewById(R.id.recycler_classrooms);
 
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        View headerView = navigationView.getHeaderView(0);
+
+        email_user = headerView.findViewById(R.id.email_user);
+        avatar = headerView.findViewById(R.id.img_avatar);
+
+
         classroomAdapter = new ClassroomAdapter(this, this);
 
         classroomViewModel = new ViewModelProvider(this).get(ClassroomViewModel.class);
 
         memberViewModel = new ViewModelProvider(this).get(MemberViewModel.class);
 
+
         loadingdata();
+
+        User user = new Gson().fromJson(DataLocalManager.getUser(), User.class);
+
+        email_user.setText(user.getEmail());
+
+        if(user.getAvatar() != null && !user.getAvatar().equals("")){
+            Picasso.get().load(user.getAvatar()).into(avatar);
+        }
 
         button_open_navigationview.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +128,9 @@ public class MainActivity extends AppCompatActivity implements ClassroomItemList
                     Intent intent = new Intent(MainActivity.this, SignInActivity.class);
                     startActivity(intent);
                     finish();
+                }else if(item.getItemId() == R.id.update_profile){
+                    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                    startActivity(intent);
                 }
                 return true;
             }

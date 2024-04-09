@@ -29,6 +29,7 @@
                 android:layout_height="wrap_content"
                 android:text="Auth2"
                 android:textStyle="bold"
+                android:textColor="@color/black"
                 android:textSize="18dp"
                 android:paddingBottom="10dp"
                 android:layout_gravity="center"/>
@@ -38,6 +39,7 @@
                 android:layout_height="wrap_content"
                 android:text="nguyenthiennam.vn"
                 android:textStyle="normal"
+                android:textColor="@color/gray"
                 android:textSize="13dp"/>
         </LinearLayout>
 

@@ -13,6 +13,12 @@ public class Attendance {
 
     private Date attendanceTime;
 
+    public Attendance(User user, Classroom classroom, String qr) {
+        this.user = user;
+        this.classroom = classroom;
+        this.qr = qr;
+    }
+
     public Attendance(User user, Classroom classroom, String qr, Date attendanceTime) {
         this.user = user;
         this.classroom = classroom;

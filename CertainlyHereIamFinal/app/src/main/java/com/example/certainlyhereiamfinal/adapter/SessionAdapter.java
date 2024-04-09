@@ -3,6 +3,7 @@ package com.example.certainlyhereiamfinal.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.example.certainlyhereiamfinal.activity.AttendanceActivity;
 import com.example.certainlyhereiamfinal.activity.AttendanceMemberActivity;
 import com.example.certainlyhereiamfinal.model.Session;
 import com.example.certainlyhereiamfinal.store.DataLocalManager;
+import com.google.gson.Gson;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -61,7 +63,6 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
             holder.date.setText(formatDate(session.getDateInit(), "HH:mm:ss dd-MM-yyyy"));
             holder.timeend.setText(formatDate(session.getTimeEnd(), "HH:mm:ss dd-MM-yyyy"));
             holder.room.setText(session.getRoom());
-            holder.location.setText(session.getLocation());
             holder.actionBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -79,8 +80,9 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
                         ((Activity) context).finish();
                     }else{
                         Intent intent = new Intent(context, AttendanceMemberActivity.class);
-                        intent.putExtra("qrCode", session.getQr());
-                        intent.putExtra("classId", session.getClassroom().getId());
+                        Gson gson = new Gson();
+                        String sessionData = gson.toJson(new Session(session.getTimeEnd(), session.getClassroom(), session.getQr()));
+                        intent.putExtra("session", sessionData);
                         context.startActivity(intent);
                         ((Activity) context).finish();
                     }
@@ -108,7 +110,6 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
             date = itemView.findViewById(R.id.session_item_date);
             timeend = itemView.findViewById(R.id.session_item_timeend);
             room = itemView.findViewById(R.id.session_item_room);
-            location = itemView.findViewById(R.id.session_item_location);
             session_item = itemView.findViewById(R.id.session_item);
             actionBtn = itemView.findViewById(R.id.action_update_delete);
         }

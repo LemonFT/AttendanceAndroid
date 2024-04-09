@@ -18,6 +18,7 @@
             android:id="@+id/session_item_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:layout_weight="6"
             android:text="Buổi 1 (T3, 02-04-2024)"
             android:padding="5dp"
@@ -47,6 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textColor="@color/black"
             android:text="3h:00"
             android:textStyle="bold"
             android:padding="10dp"
@@ -61,20 +63,10 @@
             android:text="Phòng học: A009"
             android:textStyle="bold"
             android:padding="10dp"
+            android:textColor="@color/black"
             android:textAlignment="center"
             android:drawablePadding="10dp"
             android:drawableLeft="@drawable/ic_school"/>
-        <TextView
-            android:id="@+id/session_item_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Cơ sở 1, quận 5, TP HCM"
-            android:textStyle="bold"
-            android:padding="10dp"
-            android:textAlignment="center"
-            android:drawablePadding="10dp"
-            android:drawableLeft="@drawable/ic_location"/>
     </LinearLayout>
 
 </RelativeLayout>

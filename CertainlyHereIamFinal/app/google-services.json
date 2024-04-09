@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "457989599388",
+    "project_id": "lemon-c6ffb",
+    "storage_bucket": "lemon-c6ffb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457989599388:android:e85ce89862c9673f35bd59",
+        "android_client_info": {
+          "package_name": "com.example.certainlyhereiamfinal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHxLmIT45iMqGEMYWA_lEj9Ff3gsn_S5M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

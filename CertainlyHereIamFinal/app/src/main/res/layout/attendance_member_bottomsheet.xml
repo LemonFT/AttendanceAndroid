@@ -33,9 +33,10 @@
 
 
         <EditText
+            android:id="@+id/email_member"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Fullname"
+            android:hint="Email"
             android:inputType="textEmailAddress"
             android:textSize="15dp"
             android:padding="15dp"
@@ -48,6 +49,7 @@
             />
 
         <EditText
+            android:id="@+id/identifier_member"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Identifier"
@@ -62,11 +64,21 @@
             android:background="@drawable/custom_edittext"
             />
 
+        <TextView
+            android:id="@+id/clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_red_dark"
+            android:text="Time remaining: 09m 09s"
+            android:layout_gravity="center"/>
         <Button
+            android:id="@+id/btnSaveAttendance"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
             android:textColor="@color/black"
             android:backgroundTint="@color/white"

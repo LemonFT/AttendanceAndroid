@@ -22,7 +22,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "member", uniqueConstraints = {
-        @UniqueConstraint(columnNames = { "class_id", "user_id" })
+        @UniqueConstraint(columnNames = { "classroom_id", "user_id" })
 })
 public class Member implements Serializable {
     @Id

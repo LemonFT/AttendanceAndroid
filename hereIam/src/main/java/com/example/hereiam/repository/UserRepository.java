@@ -12,7 +12,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     public abstract User findByEmail(String email);
 
-    @Query("SELECT u FROM Classroom c JOIN User u ON c.user.id = u.id WHERE u.email = :emailSimilar AND u.identifier = :identifierSimilar AND c.id = :classId")
+    @Query("SELECT u FROM Member m JOIN User u ON m.user.id = u.id WHERE u.email = :emailSimilar AND u.identifier = :identifierSimilar AND m.classroom.id = :classId and m.role = 2 and m.status = 1")
     public abstract User findUserByEmailOrIdentifierInClass(@Param("emailSimilar") String email,
             @Param("identifierSimilar") String identifier,
             @Param("classId") Long classId);

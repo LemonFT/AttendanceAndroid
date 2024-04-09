@@ -55,4 +55,9 @@ public class SessionService implements ISessionService {
         Date timeEndUtil = new Date(timeEnd.getTime());
         return timeAtt.compareTo(timeEndUtil) <= 0;
     }
+
+    @Override
+    public Session findSessionByQr(String qr) {
+        return sessionRepository.findByQr(qr);
+    }
 }

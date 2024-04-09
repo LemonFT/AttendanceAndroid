@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
@@ -33,6 +34,7 @@
                     android:layout_marginLeft="30dp"
                     android:textStyle="bold"
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="20dp"
                     android:layout_marginRight="60dp"/>
 
@@ -52,6 +54,7 @@
                 android:layout_height="wrap_content"
                 android:text="ĐÃ ĐIỂM DANH: 10/27"
                 android:textStyle="bold"
+                android:textColor="@color/black"
                 android:padding="10dp"
                 android:textAlignment="center"/>
 
@@ -63,6 +66,7 @@
                     android:id="@+id/yesAtt"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:layout_weight="5"
                     android:padding="10dp"
                     android:textAlignment="center"
@@ -74,6 +78,7 @@
                 <TextView
                     android:id="@+id/noAtt"
                     android:layout_width="0dp"
+                    android:textColor="@color/black"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
                     android:padding="10dp"
@@ -105,6 +110,7 @@
             android:layout_marginBottom="16dp"
             android:layout_marginEnd="16dp"
             android:src="@drawable/ic_qr"
+            android:backgroundTint="@color/light_purple"
             app:maxImageSize="50dp"
             />
 
@@ -117,6 +123,7 @@
             android:layout_marginBottom="16dp"
             android:layout_marginStart="16dp"
             android:src="@drawable/ic_plus"
+            android:backgroundTint="@color/light_purple"
             app:maxImageSize="50dp"
             />
     </RelativeLayout>

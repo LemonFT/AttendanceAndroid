@@ -35,9 +35,6 @@ public class Session implements Serializable {
     private String room;
 
     @Column
-    private String location;
-
-    @Column
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MMM dd, yyyy h:mm:ss a", timezone = "GMT+7")
     private Date dateInit;
 
@@ -51,6 +48,12 @@ public class Session implements Serializable {
 
     @Column
     private String qr;
+
+    @Column
+    private double latitude;
+
+    @Column
+    private double longitude;
 
     public Session(Long id) {
         this.id = id;

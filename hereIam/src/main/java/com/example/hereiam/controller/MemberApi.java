@@ -42,8 +42,13 @@ public class MemberApi {
 
     @PostMapping("/member/{classroomId}/{userId}")
     public ResponseEntity<?> joinClass(@PathVariable Long classroomId, @PathVariable Long userId) {
+        boolean memberExist = iMemberService.checkExistUserInClass(classroomId, userId);
+        if (memberExist) {
+            return ResponseEntity.ok().body(new Response("User already exist in class"));
+        }
         boolean resultJoin = iMemberService.joinClass(classroomId, userId);
-        return resultJoin ? ResponseEntity.ok().body(new Response("200")) : ResponseEntity.notFound().build();
+        return resultJoin ? ResponseEntity.ok().body(new Response("Participate in class successfully"))
+                : ResponseEntity.ok().body(new Response("Participate in class failed"));
     }
 
 }

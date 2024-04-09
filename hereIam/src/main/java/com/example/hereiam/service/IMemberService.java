@@ -17,4 +17,6 @@ public interface IMemberService {
     public abstract boolean outClass(Long classId, Long userId);
 
     public abstract boolean joinClass(Long classId, Long userId);
+
+    public abstract boolean checkExistUserInClass(Long classId, Long userId);
 }

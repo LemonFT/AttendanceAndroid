@@ -14,4 +14,8 @@ public interface IAttendanceService {
     public abstract Attendance insertAttendanceService(Attendance attendance);
 
     public abstract Attendance findExisAttendance(Long userId, Long classId, String qr);
+
+    public abstract Attendance checkAttendanceUser(Long userId, Long classId, String qr);
+
+    public abstract double calculateDistanceInMeters(double lat1, double lon1, double lat2, double lon2);
 }

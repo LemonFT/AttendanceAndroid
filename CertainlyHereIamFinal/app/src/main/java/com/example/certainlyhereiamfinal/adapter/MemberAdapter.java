@@ -56,7 +56,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             }
             holder.name.setText(member.getUser().getEmail());
             holder.identifier.setText(member.getUser().getIdentifier());
-
+            holder.time_attendance.setVisibility(View.GONE);
             if (member.getRole() == 1) {
                 holder.icon_trash.setVisibility(View.GONE);
                 holder.icon_master.setVisibility(View.VISIBLE);

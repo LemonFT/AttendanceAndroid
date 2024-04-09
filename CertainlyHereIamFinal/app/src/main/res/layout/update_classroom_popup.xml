@@ -26,6 +26,8 @@
         android:background="@drawable/custom_edittext"
         android:padding="15dp"
         android:textSize="14dp"
+        android:textColorHint="@color/gray"
+        android:textColor="@color/black"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:hint="Class name"/>

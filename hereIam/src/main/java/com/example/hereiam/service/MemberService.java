@@ -53,15 +53,19 @@ public class MemberService implements IMemberService {
     }
 
     @Override
+    public boolean checkExistUserInClass(Long classId, Long userId) {
+        Member memberExist = memberRepository.findAllByClassroomIdAndUserId(classId, userId);
+        return memberExist != null;
+    }
+
+    @Override
     public boolean joinClass(Long classId, Long userId) {
         try {
-            Member member = insertMember(new Member(null, new User(userId), new Classroom(classId), 2L, 1));
-            if (member == null) {
-                memberRepository.joinClassAgain(classId, userId);
-            }
+            insertMember(new Member(null, new User(userId), new Classroom(classId), 2L, 1));
             return true;
         } catch (Exception e) {
-            return false;
+            memberRepository.joinClassAgain(classId, userId);
+            return checkExistUserInClass(classId, userId);
         }
     }
 

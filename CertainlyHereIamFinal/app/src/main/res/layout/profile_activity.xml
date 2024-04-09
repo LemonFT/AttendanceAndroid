@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/avatar_pf"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/ic_camera"
+        app:civ_border_width="1dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"/>
+
+    <EditText
+        android:id="@+id/email_pf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:inputType="text"
+        android:textSize="15dp"
+        android:padding="15dp"
+        android:textColorHint="@color/gray"
+        android:textColor="@color/black"
+        android:drawableLeft="@drawable/ic_emaill"
+        android:drawablePadding="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/custom_edittext"
+        android:layout_below="@+id/avatar_pf"
+        />
+    <EditText
+        android:id="@+id/name_pf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Fullname"
+        android:inputType="text"
+        android:textSize="15dp"
+        android:padding="15dp"
+        android:textColorHint="@color/gray"
+        android:textColor="@color/black"
+        android:drawableLeft="@drawable/ic_name"
+        android:drawablePadding="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/custom_edittext"
+        android:layout_below="@+id/email_pf"
+        />
+    <EditText
+        android:id="@+id/identifier_pf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Identifier"
+        android:inputType="text"
+        android:textSize="15dp"
+        android:padding="15dp"
+        android:textColorHint="@color/gray"
+        android:textColor="@color/black"
+        android:drawableLeft="@drawable/ic_code"
+        android:drawablePadding="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/custom_edittext"
+        android:layout_below="@+id/name_pf"
+        />
+
+    <Button
+        android:id="@+id/btn_update_profile"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/light_purple"
+        android:textStyle="bold"
+        android:text="Update profile"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/identifier_pf"/>
+
+
+
+
+
+</RelativeLayout>
