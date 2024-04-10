@@ -45,7 +45,7 @@ public class SessionsMemberActivity extends AppCompatActivity {
             }
         });
 
-        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setOffscreenPageLimit(1);
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

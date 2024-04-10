@@ -11,6 +11,7 @@ import static com.example.certainlyhereiamfinal.Global.showAlertSuccess;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -124,7 +125,7 @@ public class ScanQRFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 zoom = 1;
-                mCodeScanner.setZoom(1);
+                mCodeScanner.setZoom(zoom);
             }
         });
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
@@ -142,11 +143,14 @@ public class ScanQRFragment extends Fragment {
                                 .observe((LifecycleOwner) ScanQRFragment.this.getContext(), data -> {
                                     if(data.equals("Attendance succcessfully")){
                                         showAlertSuccess("Attendance succcessfully", ScanQRFragment.this.getContext());
+                                        mCodeScanner.startPreview();
 
                                     }else{
                                         showAlert(data, ScanQRFragment.this.getContext());
+                                        mCodeScanner.startPreview();
                                     }
                                 });
+
                     }
                 });
             }
@@ -214,6 +218,11 @@ public class ScanQRFragment extends Fragment {
                     mFusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
                 })
                 .addOnFailureListener(e -> {
+                    Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    context.startActivity(intent);
+                    start_camera.clearAnimation();
+                    start_camera.setShapeAppearanceModel(originalShapeAppearanceModel);
+                    start_camera.setImageResource(R.drawable.ic_camera);
                     Log.d("err", e.toString());
                 });
     }

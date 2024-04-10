@@ -44,6 +44,7 @@ public class SessionService implements ISessionService {
         if (!sessionFind.isPresent()) {
             return null;
         }
+        session.setDateInit(sessionFind.get().getDateInit());
         Session sessionReturn = sessionRepository.save(session);
         return sessionReturn != null ? sessionReturn : null;
     }

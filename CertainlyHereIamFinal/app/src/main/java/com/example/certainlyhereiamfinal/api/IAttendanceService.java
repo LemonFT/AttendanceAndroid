@@ -3,8 +3,10 @@ package com.example.certainlyhereiamfinal.api;
 
 import com.example.certainlyhereiamfinal.model.Attendance;
 import com.example.certainlyhereiamfinal.model.AttendanceRequest;
+import com.example.certainlyhereiamfinal.model.ExcelExport;
 import com.example.certainlyhereiamfinal.model.Member;
 import com.example.certainlyhereiamfinal.model.Response;
+import com.example.certainlyhereiamfinal.model.Statistics;
 import com.example.certainlyhereiamfinal.model.User;
 
 import java.util.List;
@@ -17,6 +19,12 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface IAttendanceService {
+
+    @GET("attendance/{classId}")
+    Call<List<Statistics>> findAttendanceByClassroomId(@Path("classId") Long classId);
+
+    @GET("attendance-excel/{classId}")
+    Call<List<ExcelExport>> statisticAttendanceAllSession(@Path("classId") Long classId);
 
     @POST("attendanced")
     Call<List<Member>> findUsersAttendanced(@Body AttendanceRequest request);

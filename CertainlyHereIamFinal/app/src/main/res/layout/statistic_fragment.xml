@@ -1,6 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="20dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/tab1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:background="@drawable/border_radius_form_litle"
+            android:backgroundTint="@color/black"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total sessions"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/white"
+                android:gravity="center"/>
+            <TextView
+                android:id="@+id/sta_total_session"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="no data"
+                android:gravity="center"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:background="@drawable/border_radius_form_litle"
+            android:backgroundTint="@color/black"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total members"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"/>
+            <TextView
+                android:id="@+id/sta_number_member"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="no data"
+                android:gravity="center"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"
+        android:layout_below="@+id/tab1"
+        android:layout_marginTop="20dp"/>
+
+
+    <LinearLayout
+        android:id="@+id/tab2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/tab1"
+        android:layout_marginTop="40dp">
+        <ImageView
+            android:id="@+id/sta_back"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:padding="5dp"
+            android:src="@drawable/ic_back_w"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:background="@drawable/border_radius_form"
+            android:backgroundTint="@color/black">
+            <TextView
+                android:id="@+id/sta_room"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="4"
+                android:textColor="@color/white"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:text="Session"/>
+            <TextView
+                android:id="@+id/sta_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="13dp"
+                android:padding="5dp"
+                android:text="Time: 00:00:00 00/00/0000"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/sta_next"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:padding="5dp"
+            android:src="@drawable/ic_next_w"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tab3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/tab2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:id="@+id/sta_checked"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:textStyle="bold"
+                android:textSize="13dp"
+                android:gravity="center"
+                android:text="Checked in: no data"/>
+            <TextView
+                android:id="@+id/sta_nochecked"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:textStyle="bold"
+                android:textSize="13dp"
+                android:gravity="center"
+                android:text="No checked in: no data"/>
+        </LinearLayout>
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pie_chart"
+            android:layout_width="match_parent"
+            android:layout_height="195dp"
+            android:layout_gravity="center"
+            android:background="#BFBABF"
+            android:elevation="5dp"
+            />
+
+        <TextView
+            android:id="@+id/participation_rate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No data"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/border_radius_form_litle"
+            android:backgroundTint="#E9E5EC"
+            android:elevation="30dp"
+            android:textColor="#58B61E"/>
+        <TextView
+            android:id="@+id/no_data"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:text="NO DATA"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:visibility="gone"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Export to excel"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#39870A"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tab3"/>
+
+</RelativeLayout>

@@ -1,5 +1,6 @@
 package com.example.hereiam.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,13 +8,21 @@ import org.springframework.stereotype.Service;
 
 import com.example.hereiam.entity.Attendance;
 import com.example.hereiam.entity.Member;
+import com.example.hereiam.entity.Session;
+import com.example.hereiam.mapping.Attendances;
+import com.example.hereiam.mapping.ExcelExport;
+import com.example.hereiam.mapping.Statistics;
 import com.example.hereiam.repository.AttendanceRepository;
+import com.example.hereiam.repository.SessionRepository;
 
 @Service
 public class AttendanceService implements IAttendanceService {
 
     @Autowired
     private AttendanceRepository attendanceRepository;
+
+    @Autowired
+    private SessionRepository sessionRepository;
 
     @Override
     public List<Member> findUserByClassId(Long classId, String qr) {
@@ -56,5 +65,21 @@ public class AttendanceService implements IAttendanceService {
                 + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(deltaLon / 2), 2);
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         return earthRadiusInMeters * c;
+    }
+
+    @Override
+    public List<Statistics> findAllByClassroomId(Long classId) {
+        return attendanceRepository.findAllByClassroomId(classId);
+    }
+
+    @Override
+    public List<ExcelExport> statisticAttendanceAllSession(Long classId) {
+        List<ExcelExport> excelExports = new ArrayList<>();
+        List<Session> sessions = sessionRepository.findAllByClassroomId(classId);
+        for (Session s : sessions) {
+            List<Attendances> attendances = attendanceRepository.findAllAttendanceByQr(s.getQr());
+            excelExports.add(new ExcelExport(s, attendances));
+        }
+        return excelExports;
     }
 }

@@ -1,8 +1,11 @@
 package com.example.hereiam.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,7 +15,9 @@ import com.example.hereiam.entity.Attendance;
 import com.example.hereiam.entity.Session;
 import com.example.hereiam.entity.User;
 import com.example.hereiam.mapping.AttendanceRequest;
+import com.example.hereiam.mapping.ExcelExport;
 import com.example.hereiam.mapping.Response;
+import com.example.hereiam.mapping.Statistics;
 import com.example.hereiam.service.IAttendanceService;
 import com.example.hereiam.service.ISessionService;
 import com.example.hereiam.service.IUserService;
@@ -30,9 +35,21 @@ public class AttendanceApi {
     @Autowired
     private IUserService iUserService;
 
+    @GetMapping("/attendance/{classId}")
+    public ResponseEntity<?> findAllByClassroomId(@PathVariable Long classId) {
+        System.err.println(classId + "classId");
+        List<Statistics> statistics = iAttendanceService.findAllByClassroomId(classId);
+        return ResponseEntity.ok().body(statistics);
+    }
+
+    @GetMapping("attendance-excel/{classId}")
+    public ResponseEntity<?> findAllAttendanceAllSessionByClassroomId(@PathVariable Long classId) {
+        List<ExcelExport> excelExports = iAttendanceService.statisticAttendanceAllSession(classId);
+        return ResponseEntity.ok().body(excelExports);
+    }
+
     @PostMapping("/attendanced")
     public ResponseEntity<?> findAllUserAttendanced(@RequestBody AttendanceRequest attendanceRequest) {
-        System.err.println(attendanceRequest.getQr());
         return ResponseEntity.ok()
                 .body(iAttendanceService.findUserByClassId(attendanceRequest.getClassId(), attendanceRequest.getQr()));
     }
@@ -91,8 +108,12 @@ public class AttendanceApi {
             return ResponseEntity.ok().body(new Response("You are outside the maximum range of the class"));
         }
 
-        Attendance attendanceExist = iAttendanceService.findExisAttendance(user.getId(),
-                attendance.getClassroom().getId(), attendance.getQr());
+        if (!session.getClassroom().getId().equals(attendance.getClassroom().getId())) {
+            return ResponseEntity.ok().body(new Response("You must choose the right class for you"));
+        }
+
+        Attendance attendanceExist = iAttendanceService.findExisAttendance(attendance.getUser().getId(),
+                session.getClassroom().getId(), attendance.getQr());
 
         if (attendanceExist != null) {
             return ResponseEntity.ok().body(new Response("You has completed attendance"));
@@ -108,6 +129,7 @@ public class AttendanceApi {
     @PostMapping("/attendance-qr/{latitude}/{longitude}")
     public ResponseEntity<?> insertAttendanceQr(@RequestBody Attendance attendance, @PathVariable double latitude,
             @PathVariable double longitude) {
+        System.err.println("qr: " + attendance.getQr());
         System.err.println("lat: " + latitude + "   " + "long: " + longitude);
         boolean validTime = iSessionService.validTime(attendance.getQr(), attendance.getAttendanceTime());
         if (!validTime) {
@@ -117,12 +139,17 @@ public class AttendanceApi {
         Session session = iSessionService.findSessionByQr(attendance.getQr());
         double distance = iAttendanceService.calculateDistanceInMeters(session.getLatitude(), session.getLongitude(),
                 latitude, longitude);
-        System.err.println(distance + "");
+
         if (distance > MAX_DISTANCE) {
             return ResponseEntity.ok().body(new Response("You are outside the maximum range of the class"));
         }
+
+        if (!session.getClassroom().getId().equals(attendance.getClassroom().getId())) {
+            return ResponseEntity.ok().body(new Response("You must choose the right class for you"));
+        }
+
         Attendance attendanceExist = iAttendanceService.findExisAttendance(attendance.getUser().getId(),
-                attendance.getClassroom().getId(), attendance.getQr());
+                session.getClassroom().getId(), attendance.getQr());
 
         if (attendanceExist != null) {
             return ResponseEntity.ok().body(new Response("You has completed attendance"));

@@ -149,7 +149,6 @@ public class SessionsFragment extends Fragment implements SessionItemListenner {
                     onFloatButtonClick();
                     if (!permissionLocationGranted(context)) {
                         requestPermissionLocation(activity);
-                        init();
                     } else {
                         init();
                     }
@@ -252,6 +251,7 @@ public class SessionsFragment extends Fragment implements SessionItemListenner {
                     mFusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
                 })
                 .addOnFailureListener(e -> {
+                    isRotated = false;
                     Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                     context.startActivity(intent);
                     Log.d("err", e.toString());

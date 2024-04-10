@@ -11,7 +11,9 @@ import com.example.certainlyhereiamfinal.api.IAttendanceService;
 import com.example.certainlyhereiamfinal.api.RetrofitClient;
 import com.example.certainlyhereiamfinal.model.Attendance;
 import com.example.certainlyhereiamfinal.model.AttendanceRequest;
+import com.example.certainlyhereiamfinal.model.ExcelExport;
 import com.example.certainlyhereiamfinal.model.Member;
+import com.example.certainlyhereiamfinal.model.Statistics;
 import com.example.certainlyhereiamfinal.model.User;
 
 import java.util.List;
@@ -141,4 +143,45 @@ public class AttendanceViewModel extends ViewModel {
         return result;
     }
 
+    public LiveData<List<Statistics>> findAttendanceByClassroomId(Long classroomId){
+        MutableLiveData<List<Statistics>> result = new MutableLiveData<>();
+        Call<List<Statistics>> call = iAttendanceService.findAttendanceByClassroomId(classroomId);
+        call.enqueue(new Callback<List<Statistics>>() {
+            @Override
+            public void onResponse(Call<List<Statistics>> call, Response<List<Statistics>> response) {
+                if(response.isSuccessful()){
+                    result.setValue(response.body());
+                }else{
+                    result.setValue(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Statistics>> call, Throwable t) {
+                Log.e("api failed", t.toString());
+            }
+        });
+        return result;
+    }
+
+    public LiveData<List<ExcelExport>> statisticAttendanceAllSession(Long classId){
+        MutableLiveData<List<ExcelExport>> result = new MutableLiveData<>();
+        Call<List<ExcelExport>> call = iAttendanceService.statisticAttendanceAllSession(classId);
+        call.enqueue(new Callback<List<ExcelExport>>() {
+            @Override
+            public void onResponse(Call<List<ExcelExport>> call, Response<List<ExcelExport>> response) {
+                if(response.isSuccessful()){
+                    result.setValue(response.body());
+                }else{
+                    result.setValue(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ExcelExport>> call, Throwable t) {
+                Log.e("api failed", t.toString());
+            }
+        });
+        return result;
+    }
 }

@@ -72,7 +72,7 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
             holder.session_item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(session.getClassroom().getUser().getId() == DataLocalManager.getUserId()){
+                    if(session.getClassroom().getUser().getId().equals(DataLocalManager.getUserId())){
                         Intent intent = new Intent(context, AttendanceActivity.class);
                         intent.putExtra("qrCode", session.getQr());
                         intent.putExtra("classId", session.getClassroom().getId());

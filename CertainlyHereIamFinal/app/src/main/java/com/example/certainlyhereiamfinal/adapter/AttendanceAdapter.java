@@ -48,7 +48,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Member member = members.get(position);
         if (member != null) {
-            if (member.getUser().getAvatar() == null) {
+            if (member.getUser().getAvatar() == null || member.getUser().getAvatar().equals("")) {
                 Picasso.get().load("https://th.bing.com/th/id/OIP.pG2K1J6nAStrFbo1rsU-VwAAAA?rs=1&pid=ImgDetMain").into(holder.avatar);
             } else {
                 Picasso.get().load(member.getUser().getAvatar()).into(holder.avatar);

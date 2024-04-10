@@ -25,7 +25,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "attendance", uniqueConstraints = {
-        @UniqueConstraint(columnNames = { "user_id", "qr", "class_id" })
+        @UniqueConstraint(columnNames = { "user_id", "qr", "classroom_id" })
 })
 public class Attendance implements Serializable {
     @Id
@@ -40,7 +40,6 @@ public class Attendance implements Serializable {
     @JoinColumn(name = "classroom_id")
     private Classroom classroom;
 
-    @Column(unique = true)
     private String qr;
 
     @Column(name = "attendance_time")

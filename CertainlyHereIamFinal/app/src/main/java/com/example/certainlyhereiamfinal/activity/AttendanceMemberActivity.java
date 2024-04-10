@@ -112,7 +112,6 @@ public class AttendanceMemberActivity extends AppCompatActivity {
                     onFloatButtonClick();
                     if(!permissionLocationGranted(context)){
                         requestPermissionLocation(AttendanceMemberActivity.this);
-                        init();
                     }else {
                         init();
                     }
@@ -216,6 +215,7 @@ public class AttendanceMemberActivity extends AppCompatActivity {
                     mFusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
                 })
                 .addOnFailureListener(e -> {
+                    isRotated = false;
                     Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                     context.startActivity(intent);
                     Log.d("err", e.toString());

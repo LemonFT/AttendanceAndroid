@@ -57,7 +57,7 @@ public class ClassroomAdapter extends RecyclerView.Adapter<ClassroomAdapter.MyHo
                 public void onClick(View v) {
                     DataLocalManager.setClassname(classroom.getName());
                     DataLocalManager.setClassId(classroom.getId());
-                    if(classroom.getUser().getId() == DataLocalManager.getUserId()){
+                    if(classroom.getUser().getId().equals(DataLocalManager.getUserId())){
                         Intent intent = new Intent(context, SessionsActivity.class);
                         context.startActivity(intent);
                         ((Activity) context).finish();
@@ -68,7 +68,7 @@ public class ClassroomAdapter extends RecyclerView.Adapter<ClassroomAdapter.MyHo
                     }
                 }
             });
-            if(classroom.getUser().getId() == DataLocalManager.getUserId()){
+            if(classroom.getUser().getId().equals(DataLocalManager.getUserId())){
                 holder.master_room.setText("your class");
             }else {
                 holder.master_room.setText(classroom.getUser().getEmail());

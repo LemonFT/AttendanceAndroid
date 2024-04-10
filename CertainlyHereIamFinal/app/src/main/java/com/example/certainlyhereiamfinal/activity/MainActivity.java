@@ -26,6 +26,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -315,7 +316,7 @@ public class MainActivity extends AppCompatActivity implements ClassroomItemList
 
         User user = new Gson().fromJson(DataLocalManager.getUser(), User.class);
 
-        if(user != null && user.getId() == classroom.getUser().getId()){
+        if(user != null && user.getId().equals(classroom.getUser().getId())){
             inflater.inflate(R.menu.menu_seemore, popupMenu.getMenu());
         }else{
             inflater.inflate(R.menu.menu_seemore_member, popupMenu.getMenu());
