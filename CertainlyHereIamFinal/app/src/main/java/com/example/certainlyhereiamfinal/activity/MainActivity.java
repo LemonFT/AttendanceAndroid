@@ -1,21 +1,16 @@
 package com.example.certainlyhereiamfinal.activity;
 
-import static com.example.certainlyhereiamfinal.Global.REQUIRED_PERMISSIONS;
-import static com.example.certainlyhereiamfinal.Global.allPermissionsGranted;
 import static com.example.certainlyhereiamfinal.Global.showAlert;
 import static com.example.certainlyhereiamfinal.Global.showAlertSuccess;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ClipData;
@@ -26,7 +21,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -132,6 +126,12 @@ public class MainActivity extends AppCompatActivity implements ClassroomItemList
                 }else if(item.getItemId() == R.id.update_profile){
                     Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
                     startActivity(intent);
+                }else if(item.getItemId() == R.id.privacy){
+                    Intent intent = new Intent(MainActivity.this, PrivacyActivity.class);
+                    startActivity(intent);
+                }else if(item.getItemId() == R.id.item_help){
+                    Intent intent = new Intent(MainActivity.this, AsQuActivity.class);
+                    startActivity(intent);
                 }
                 return true;
             }
@@ -155,8 +155,8 @@ public class MainActivity extends AppCompatActivity implements ClassroomItemList
             @Override
             public void handleOnBackPressed() {
                 new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("Thoát ứng dụng")
-                        .setMessage("Bạn có chắc chắn muốn thoát ứng dụng?")
+                        .setTitle("Exit application")
+                        .setMessage("Are you sure you want exit app?")
                         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 finish();

@@ -182,12 +182,12 @@ public class StatisticsFragment extends Fragment {
         room.setText(statistics1.getRoom());
         time.setText("Time: " + formatDate(statistics1.getInit_session(), "HH:mm:ss dd-MM-yyyy"));
         Long att = statistics1.getCheckedInCount();
-        Long noatt = total_member - att;
-        float rateJoin = (float) (att * 100.0 / total_member);
+        Long noatt = (total_member - att) < 0 ? 0 : (total_member - att);
+        float rateJoin = (float) (att * 100.0 / (total_member));
         loadPieChart(att, noatt);
         checked.setText("Checked in: " + att);
         nochecked.setText("No checked in: " + noatt);
-        participation_rate.setText("Participation rate of session: " + String.format("%.2f", rateJoin) + "%");
+        participation_rate.setText("Participation rate of session: " + String.format("%.2f", rateJoin > 100 ? 100 : rateJoin) + "%");
     }
 
     public void loadPieChart(Long check, Long nocheck) {

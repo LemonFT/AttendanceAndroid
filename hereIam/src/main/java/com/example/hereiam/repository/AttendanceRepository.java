@@ -49,6 +49,6 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
                         +
                         "FROM Member m " +
                         "LEFT JOIN Attendance a ON a.user.id = m.user.id AND a.qr = :qr " +
-                        "WHERE m.role = 2")
-        public abstract List<Attendances> findAllAttendanceByQr(@Param("qr") String qr);
+                        "WHERE m.role = 2 AND m.classroom.id = a.classroom.id AND m.classroom.id = :classId")
+        public abstract List<Attendances> findAllAttendanceByQr(@Param("qr") String qr, @Param("classId") Long classId);
 }

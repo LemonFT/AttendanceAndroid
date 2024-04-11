@@ -21,6 +21,7 @@
         android:layout_gravity="center"/>
 
     <LinearLayout
+        android:id="@+id/container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="8"
@@ -28,13 +29,11 @@
         android:orientation="vertical"
         android:layout_gravity="center">
         <TextView
-            android:id="@+id/name"
+            android:id="@+id/fullname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="nguyenthiennam.npk@gmail.com"
             android:textStyle="bold"
-            android:textSize="13dp"/>
+            android:text="Nguyễn Vũ Quốc Lâm"/>
         <TextView
             android:id="@+id/identifier"
             android:layout_width="match_parent"
@@ -44,13 +43,13 @@
             android:textStyle="bold"
             android:text="ID: 3121410292"/>
         <TextView
-            android:id="@+id/time_attendance"
+            android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="10dp"
             android:textColor="@color/gray"
-            android:text="Attendance time: 09:20"/>
+            android:text="nguyenthiennam.npk@gmail.com"
+            android:textStyle="normal"
+            android:textSize="11dp"/>
     </LinearLayout>
 
     <ImageView
@@ -58,12 +57,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_delete"
-        android:layout_gravity="center"/>
-    <ImageView
-        android:id="@+id/icon_master"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_star"
         android:layout_gravity="center"/>
 
 </LinearLayout>

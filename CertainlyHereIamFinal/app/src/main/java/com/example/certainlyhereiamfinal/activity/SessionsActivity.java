@@ -24,7 +24,7 @@ import com.example.certainlyhereiamfinal.fragment.SessionsFragment;
 import com.example.certainlyhereiamfinal.store.DataLocalManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class SessionsActivity extends AppCompatActivity {
+public class SessionsActivity extends AppCompatActivity{
 
     private ViewPager mViewPager;
     private BottomNavigationView mBottomNavigationView;

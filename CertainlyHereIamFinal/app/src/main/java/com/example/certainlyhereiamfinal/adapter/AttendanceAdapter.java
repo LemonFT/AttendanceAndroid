@@ -53,10 +53,12 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
             } else {
                 Picasso.get().load(member.getUser().getAvatar()).into(holder.avatar);
             }
-            holder.name.setText(member.getUser().getEmail());
-            holder.identifier.setText(member.getUser().getIdentifier());
+            String nameStr = (member.getUser().getFullname().equals("") || member.getUser().getFullname() == null) ? "Not updated" : member.getUser().getFullname();
+            String idStr = (member.getUser().getIdentifier().equals("") || member.getUser().getIdentifier() == null) ? "Not updated" : member.getUser().getIdentifier();
+            holder.name.setText("Email: "+member.getUser().getEmail());
+            holder.identifier.setText("ID: "+idStr);
+            holder.fullname.setText(nameStr);
             holder.icon_trash.setVisibility(View.GONE);
-            holder.icon_master.setVisibility(View.GONE);
         }
     }
 
@@ -75,17 +77,16 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
 
         private CircleImageView avatar;
 
-        private TextView name, identifier, time_attendance;
-        private ImageView icon_trash, icon_master;
+        private TextView name, identifier, fullname;
+        private ImageView icon_trash;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             avatar = itemView.findViewById(R.id.avatar);
             name = itemView.findViewById(R.id.name);
             identifier = itemView.findViewById(R.id.identifier);
-            time_attendance = itemView.findViewById(R.id.time_attendance);
             icon_trash = itemView.findViewById(R.id.icon_trash);
-            icon_master = itemView.findViewById(R.id.icon_master);
+            fullname = itemView.findViewById(R.id.fullname);
         }
     }
 }

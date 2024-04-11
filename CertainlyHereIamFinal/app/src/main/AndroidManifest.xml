@@ -52,9 +52,17 @@
         <activity android:name=".activity.SessionsMemberActivity"
             android:exported="true">
         </activity>
+        <activity android:name=".activity.AsQuActivity"
+            android:exported="true">
+        </activity>
+        <activity android:name=".activity.PrivacyActivity"
+            android:exported="true">
+        </activity>
         <activity android:name=".activity.ProfileActivity"
             android:exported="true">
         </activity>
+
+
     </application>
 
 </manifest>

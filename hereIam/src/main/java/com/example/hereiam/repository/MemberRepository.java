@@ -15,9 +15,8 @@ import jakarta.transaction.Transactional;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
-    public abstract List<Member> findAllByClassroomId(Long classId);
-
-    // public abstract List<Member> findAllByUserId(Long userId);
+    @Query("SELECT m FROM Member m WHERE m.classroom.id = :classId AND m.role = 2 AND m.status = 1")
+    public abstract List<Member> findAllByClassroomId(@Param("classId") Long classId);
 
     @Transactional(rollbackOn = Exception.class)
     @Modifying

@@ -1,6 +1,7 @@
 package com.example.certainlyhereiamfinal.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,9 +29,13 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
     private Context context;
 
     private List<Member> members;
+    private MemberItemListenner memberItemListenner;
+    private  boolean noDelete;
 
-    public MemberAdapter(Context context) {
+    public MemberAdapter(Context context, MemberItemListenner memberItemListenner, boolean noDelete) {
         this.context = context;
+        this.memberItemListenner = memberItemListenner;
+        this.noDelete = noDelete;
     }
 
     public void setStudents(List<Member> members) {
@@ -54,22 +59,43 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             } else {
                 Picasso.get().load(member.getUser().getAvatar()).into(holder.avatar);
             }
-            holder.name.setText(member.getUser().getEmail());
-            holder.identifier.setText(member.getUser().getIdentifier());
-            holder.time_attendance.setVisibility(View.GONE);
-            if (member.getRole() == 1) {
+            String nameStr = member.getUser().getFullname() == null || member.getUser().getFullname().equals("")  ? "Not updated" : member.getUser().getFullname();
+            String idStr = member.getUser().getIdentifier() == null || member.getUser().getIdentifier().equals("")  ? "Not updated" : member.getUser().getIdentifier();
+            holder.name.setText("Email: "+member.getUser().getEmail());
+            holder.identifier.setText("ID: "+idStr);
+            holder.fullname.setText(nameStr);
+
+            if(noDelete){
                 holder.icon_trash.setVisibility(View.GONE);
-                holder.icon_master.setVisibility(View.VISIBLE);
-            } else {
-                holder.icon_trash.setVisibility(View.VISIBLE);
-                holder.icon_master.setVisibility(View.GONE);
             }
+            holder.icon_trash.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    memberItemListenner.onDeleteMember(v, member);
+                }
+            });
+            holder.container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+            holder.container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
         }
+    }
+
+    private void seeProfile(){
+        Intent intent = new Intent();
     }
 
     @Override
     public int getItemCount() {
-        return members.size();
+        return members.isEmpty() ? 0 : members.size();
     }
 
 
@@ -82,17 +108,19 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
 
         private CircleImageView avatar;
 
-        private TextView name, identifier, time_attendance;
-        private ImageView icon_trash, icon_master;
+        private TextView name, identifier, fullname;
+        private ImageView icon_trash;
+
+        private LinearLayout container;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             avatar = itemView.findViewById(R.id.avatar);
             name = itemView.findViewById(R.id.name);
             identifier = itemView.findViewById(R.id.identifier);
-            time_attendance = itemView.findViewById(R.id.time_attendance);
+            fullname = itemView.findViewById(R.id.fullname);
             icon_trash = itemView.findViewById(R.id.icon_trash);
-            icon_master = itemView.findViewById(R.id.icon_master);
+            container = itemView.findViewById(R.id.container);
         }
     }
 }

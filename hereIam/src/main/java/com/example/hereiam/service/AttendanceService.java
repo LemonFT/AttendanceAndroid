@@ -77,7 +77,7 @@ public class AttendanceService implements IAttendanceService {
         List<ExcelExport> excelExports = new ArrayList<>();
         List<Session> sessions = sessionRepository.findAllByClassroomId(classId);
         for (Session s : sessions) {
-            List<Attendances> attendances = attendanceRepository.findAllAttendanceByQr(s.getQr());
+            List<Attendances> attendances = attendanceRepository.findAllAttendanceByQr(s.getQr(), classId);
             excelExports.add(new ExcelExport(s, attendances));
         }
         return excelExports;

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/brg_signin">
+
+    <TextView
+        android:id="@+id/tt_signin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CERTAINLY HERE IAM"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:drawableTop="@drawable/ic_list"
+        android:drawableTint="@color/purple"
+        android:layout_gravity="center"/>
+
+
+    <TextView
+        android:id="@+id/permissionsTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="The application requires the following permissions to operate:"
+        android:textSize="18sp"
+        android:layout_marginBottom="15dp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:textAlignment="center"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/storagePermissionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="• Storage: To store your data. We promise to keep your personal data secure and confidential."
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:drawableLeft="@drawable/ic_storage"
+        android:drawablePadding="15dp"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/locationPermissionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="• Location: To determine your location when checking in to ensure accuracy and fairness."
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:drawableLeft="@drawable/ic_location"
+        android:drawablePadding="15dp"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/cameraPermissionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="• Camera: To allow you to quickly check in via QR code."
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:drawableLeft="@drawable/ic_camera_24"
+        android:drawablePadding="15dp"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/internetPermissionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="• Internet: To perform tasks related to the internet."
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:drawableLeft="@drawable/ic_internet"
+        android:drawablePadding="15dp"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/notificationPermissionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="• Notifications: To send notifications to you."
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:drawableLeft="@drawable/ic_noti"
+        android:drawablePadding="15dp"
+        android:layout_marginBottom="8dp" />
+
+</LinearLayout>
