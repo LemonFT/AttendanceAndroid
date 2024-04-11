@@ -3,6 +3,7 @@ package com.example.hereiam.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +13,7 @@ import com.example.hereiam.config.JwtTokenProvider;
 import com.example.hereiam.entity.User;
 import com.example.hereiam.mapping.FirstSign;
 import com.example.hereiam.mapping.JwtToken;
+import com.example.hereiam.mapping.Response;
 import com.example.hereiam.service.IUserService;
 
 @Controller
@@ -27,6 +29,21 @@ public class UserApi {
     public ResponseEntity<?> register(@RequestBody User user) {
         User userReturn = iUserService.register(user);
         return userReturn != null ? ResponseEntity.ok().body(userReturn) : ResponseEntity.badRequest().body(null);
+    }
+
+    @PostMapping("/user-verification")
+    public ResponseEntity<?> resetPwd(@RequestBody User user) {
+        boolean result = iUserService.checkAndSendVerifiCode(user);
+        if (result) {
+            return ResponseEntity.ok().body(new Response("200"));
+        }
+        return ResponseEntity.ok().body(new Response("404"));
+    }
+
+    @PostMapping("/user-pwd/{verifiCode}")
+    public ResponseEntity<?> updatePwd(@RequestBody User user, @PathVariable String verifiCode) {
+        User userReturn = iUserService.updatePwd(user, verifiCode);
+        return userReturn != null ? ResponseEntity.ok().body(userReturn) : ResponseEntity.notFound().build();
     }
 
     @PostMapping("/user-signin")

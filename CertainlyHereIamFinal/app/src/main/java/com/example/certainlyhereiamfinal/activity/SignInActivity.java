@@ -31,6 +31,7 @@ import java.util.regex.Pattern;
 public class SignInActivity extends AppCompatActivity {
 
     private Button open_register, btnSignIn, btnRegister;
+    private TextView naviForgot;
     private RelativeLayout layout_register;
     private BottomSheetBehavior bottomSheetBehavior;
     EditText signinEdtEmail, signinEdtPwd, registerEdtEmail, registerEdtPwd;
@@ -51,6 +52,7 @@ public class SignInActivity extends AppCompatActivity {
         registerEdtPwd = findViewById(R.id.register_edtpwd);
         btnSignIn = findViewById(R.id.btn_signin);
         btnRegister = findViewById(R.id.btn_register);
+        naviForgot = findViewById(R.id.navi_forgotpwd);
 
         signinViewModel = new ViewModelProvider(this).get(SigninViewModel.class);
 
@@ -113,6 +115,14 @@ public class SignInActivity extends AppCompatActivity {
                 }else {
                     showAlert(resultValidate, SignInActivity.this);
                 }
+            }
+        });
+
+        naviForgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignInActivity.this, ForgotPwd.class);
+                startActivity(intent);
             }
         });
 

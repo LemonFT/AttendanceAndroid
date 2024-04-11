@@ -42,6 +42,9 @@ public class User implements Serializable {
     @Column
     private String avatar;
 
+    @Column
+    private String resetPwd;
+
     public User(Long id) {
         this.id = id;
     }

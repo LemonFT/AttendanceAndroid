@@ -10,4 +10,8 @@ public interface IUserService {
     public abstract User findByEmailAndIdentifierInClass(String email, String identifier, Long classId);
 
     public abstract User updateProfile(User user);
+
+    public abstract boolean checkAndSendVerifiCode(User user);
+
+    public abstract User updatePwd(User user, String code);
 }

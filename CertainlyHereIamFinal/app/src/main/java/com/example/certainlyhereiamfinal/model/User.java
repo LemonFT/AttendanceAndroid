@@ -7,6 +7,7 @@ public class User {
     private String identifier;
     private String password;
     private String avatar;
+    private String resetPwd;
 
     public User(Long id, String email, String fullname, String identifier, String password, String avatar) {
         this.id = id;
@@ -17,11 +18,21 @@ public class User {
         this.avatar = avatar;
     }
 
-
-
     public User(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+    public String getResetPwd() {
+        return resetPwd;
+    }
+
+    public void setResetPwd(String resetPwd) {
+        this.resetPwd = resetPwd;
+    }
+
+    public User(String email) {
+        this.email = email;
     }
 
     public User(String email, String identifier, String avatar) {
